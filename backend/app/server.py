@@ -5,6 +5,7 @@ import json, os
 from app.whiteboard import save_canvas, load_canvas
 from app.dbtools import *
 from passlib.hash import pbkdf2_sha512
+import sys
 
 @flask_app.route('/', methods=['GET'])
 def root():
@@ -13,15 +14,15 @@ def root():
 @flask_app.route('/register', methods=['GET', 'POST'])
 def register():
     content = request.json
-    print(content)
+    print(content, file=sys.stderr)
     name = content['name']
-    print(name)
+    print(name, file=sys.stderr)
     email = content['email']
-    print(email)
+    print(email, file=sys.stderr)
     password = content['password']
-    print(password)
+    print(password, file=sys.stderr)
     userType = content['userType']
-    print(userType)
+    print(userType, file=sys.stderr)
     users = getUserByEmail(email)
     isTeacher = None
     if len(users) != 0:
