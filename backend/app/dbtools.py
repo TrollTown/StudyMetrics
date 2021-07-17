@@ -13,11 +13,8 @@ def getUserByEmail(email):
 	return cur.fetchall()
 
 def insertUserIntoDatabase(name, email, pwdHash, isTeacher):
-	flask_app.logger.error("AAAAAAAAAA")
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
-	flask_app.logger.error("BBBBBBBBBB")
 	cur = conn.cursor()
-	flask_app.logger.error("CCCCCCCCCC")
 	cur.execute("""
 		INSERT INTO Users
 		VALUES (DEFAULT,%s, %s, %s, %s)
