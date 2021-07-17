@@ -14,7 +14,10 @@ def root():
 @flask_app.route('/register', methods=['GET', 'POST'])
 def register():
     flask_app.logger.error("BEFORE HELLLLOOOOOO")
-    content = request.json
+    try:
+        content = request.json
+    except Exception as e:
+        flask_app.logger.error("EXCEPTION")
     flask_app.logger.error("HELLLLOOOOOO")
     name = content['name']
     flask_app.logger.error(name)
