@@ -1,13 +1,27 @@
 import { React, useEffect, useState } from "react";
-import { 
-  Button, Text, Heading, HStack, VStack, RadioGroup, 
-  Radio, Image, NumberInput,
+import {
+  Button,
+  Text,
+  Heading,
+  HStack,
+  VStack,
+  RadioGroup,
+  Radio,
+  Image,
+  NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  Tooltip, Icon } from "@chakra-ui/react";
-import { ArrowForwardIcon, CheckIcon, CloseIcon, CheckCircleIcon } from '@chakra-ui/icons'
+  Tooltip,
+  Icon,
+} from "@chakra-ui/react";
+import {
+  ArrowForwardIcon,
+  CheckIcon,
+  CloseIcon,
+  CheckCircleIcon,
+} from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 
@@ -16,13 +30,13 @@ export default function Question() {
   const { qID } = router.query;
   const [routerReady, setRouterReady] = useState(false);
   const [questionData, setQuestionData] = useState({});
-  const [subjectName, setSubjectName] = useState('');
-  const [moduleName, setModuleName] = useState('');
-  const [submoduleName, setSubmoduleName] = useState('');
-  const [answerMC, setAnswerMC] = useState('');
+  const [subjectName, setSubjectName] = useState("");
+  const [moduleName, setModuleName] = useState("");
+  const [submoduleName, setSubmoduleName] = useState("");
+  const [answerMC, setAnswerMC] = useState("");
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const [answerRevealed, setAnswerRevealed] = useState(false);
-  const [answerNum, setAnswerNum] = useState('');
+  const [answerNum, setAnswerNum] = useState("");
 
   console.log(qID)
 
@@ -38,51 +52,66 @@ export default function Question() {
 
   const fetchQuestionData = async () => {
     const options = {
-      method: 'GET',
+      method: "GET",
     };
 
-    let res = await fetch(`https://api.production.hackathon.outki.org/get_question_by_ID?questionID=${qID}`, options)
+    let res = await fetch(
+      `https://api.production.hackathon.outki.org/get_question_by_ID?questionID=${qID}`,
+      options
+    );
     const qData = await res.json();
-    console.log(qData)
+    console.log(qData);
     setQuestionData(qData);
-    res = await fetch(`https://api.production.hackathon.outki.org/get_subject_by_ID?subjectID=${qData.subjectID}`, options)
+    res = await fetch(
+      `https://api.production.hackathon.outki.org/get_subject_by_ID?subjectID=${qData.subjectID}`,
+      options
+    );
     const subData = await res.json();
-    console.log(subData)
-    setSubjectName(subData.subjectName)
-    res = await fetch(`https://api.production.hackathon.outki.org/get_module_by_ID?moduleID=${qData.moduleID}`, options)
+    console.log(subData);
+    setSubjectName(subData.subjectName);
+    res = await fetch(
+      `https://api.production.hackathon.outki.org/get_module_by_ID?moduleID=${qData.moduleID}`,
+      options
+    );
     const mData = await res.json();
-    console.log(mData)
-    setModuleName(mData.moduleName)
-    res = await fetch(`https://api.production.hackathon.outki.org/get_submodule_by_ID?submoduleID=${qData.submoduleID}`, options)
+    console.log(mData);
+    setModuleName(mData.moduleName);
+    res = await fetch(
+      `https://api.production.hackathon.outki.org/get_submodule_by_ID?submoduleID=${qData.submoduleID}`,
+      options
+    );
     const sData = await res.json();
-    console.log(sData)
+    console.log(sData);
     setSubmoduleName(sData.submoduleName);
-  }
+  };
 
   const handleSubmit = async () => {
     let answer;
 
     if (questionData.questionType === "mc") {
-      answer = answerMC
+      answer = answerMC;
     } else if (questionData.questionType === "numerical") {
-      answer = answerNum
+      answer = answerNum;
     } else {
-      answer = "base64"
+      answer = "base64";
     }
 
     const body = {
       questionID: questionData.questionID,
-      studentID: window.sessionStorage.getItem('token'),
-      answer: answer
-    }
-
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      studentID: window.sessionStorage.getItem("token"),
+      answer: answer,
     };
 
-    const res = await fetch('https://api.production.hackathon.outki.org/submit_answer', options);
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+
+    const res = await fetch(
+      "https://api.production.hackathon.outki.org/submit_answer",
+      options
+    );
     const data = await res.json();
     console.log(data);
     if (data.result) {
@@ -91,14 +120,19 @@ export default function Question() {
       setAnswerCorrect(false);
     }
     setAnswerRevealed(true);
-  }
+  };
 
   const handleNext = async () => {
     const options = {
-      method: 'GET',
+      method: "GET",
     };
 
-    const res = await fetch(`https://api.production.hackathon.outki.org/get_next_question?studentID=${window.sessionStorage.getItem('token')}&submoduleID=${questionData.submoduleID}`, options);
+    const res = await fetch(
+      `https://api.production.hackathon.outki.org/get_next_question?studentID=${window.sessionStorage.getItem(
+        "token"
+      )}&submoduleID=${questionData.submoduleID}`,
+      options
+    );
     const data = await res.json();
     console.log(data);
     // setRouterReady(false);
@@ -109,7 +143,7 @@ export default function Question() {
   }
 
   if (!router.isReady) {
-    return <></>
+    return <></>;
   } else {
     return (
       <Layout>
@@ -124,12 +158,20 @@ export default function Question() {
         <VStack m="6em" spacing="2em">
           <VStack spacing="0.5em">
             <Heading size="lg">{moduleName}</Heading>
-            <Heading size="md" color="gray.500">{submoduleName}</Heading>
+            <Heading size="md" color="gray.500">
+              {submoduleName}
+            </Heading>
           </VStack>
           <Text>{questionData.questionText}</Text>
           <Image maxWidth="400px" height="auto"></Image>
-          {questionData.questionType === "mc" && 
-            <Tooltip hasArrow label={answerCorrect ? "Correct" : "Incorrect"} bg={answerCorrect ? "green" : "red"} isOpen={answerRevealed} placement="top">
+          {questionData.questionType === "mc" && (
+            <Tooltip
+              hasArrow
+              label={answerCorrect ? "Correct" : "Incorrect"}
+              bg={answerCorrect ? "green" : "red"}
+              isOpen={answerRevealed}
+              placement="top"
+            >
               <RadioGroup onChange={setAnswerMC} value={answerMC}>
                 <VStack>
                   <Radio value="A">{questionData.options[0]}</Radio>
@@ -138,20 +180,46 @@ export default function Question() {
                   <Radio value="D">{questionData.options[3]}</Radio>
                 </VStack>
               </RadioGroup>
-            </Tooltip>}
-          {questionData.questionType === "numerical" &&
-            <Tooltip hasArrow label={answerCorrect ? "Correct" : "Incorrect"} bg={answerCorrect ? "green" : "red"} isOpen={answerRevealed} placement="top">
-              <NumberInput size="lg" maxW={64} onChange={setAnswerNum} value={answerNum} allowMouseWheel>
+            </Tooltip>
+          )}
+          {questionData.questionType === "numerical" && (
+            <Tooltip
+              hasArrow
+              label={answerCorrect ? "Correct" : "Incorrect"}
+              bg={answerCorrect ? "green" : "red"}
+              isOpen={answerRevealed}
+              placement="top"
+            >
+              <NumberInput
+                size="lg"
+                maxW={64}
+                onChange={setAnswerNum}
+                value={answerNum}
+                allowMouseWheel
+              >
                 <NumberInputField />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
-            </Tooltip>}
-          {answerRevealed && <Icon as={answerCorrect ? CheckIcon : CloseIcon} color={answerCorrect ? "green" : "red"} boxSize="2em" />}
-          <Button rightIcon={answerRevealed ? <ArrowForwardIcon /> : <CheckCircleIcon />} 
-            colorScheme="blue" onClick={answerRevealed ? handleNext : handleSubmit}>{answerRevealed ? "Next Question" : "Submit Answer"}
+            </Tooltip>
+          )}
+          {answerRevealed && (
+            <Icon
+              as={answerCorrect ? CheckIcon : CloseIcon}
+              color={answerCorrect ? "green" : "red"}
+              boxSize="2em"
+            />
+          )}
+          <Button
+            rightIcon={
+              answerRevealed ? <ArrowForwardIcon /> : <CheckCircleIcon />
+            }
+            colorScheme="blue"
+            onClick={answerRevealed ? handleNext : handleSubmit}
+          >
+            {answerRevealed ? "Next Question" : "Submit Answer"}
           </Button>
         </VStack>
       </Layout>

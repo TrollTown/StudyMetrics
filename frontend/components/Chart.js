@@ -15,8 +15,8 @@ const data = {
     {
       label: "Your Performance",
       data: [2, 6, 4, 5, 8, 6],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
+      backgroundColor: "#D6BCFA",
+      borderColor: "#805AD5",
       borderWidth: 1,
     },
   ],

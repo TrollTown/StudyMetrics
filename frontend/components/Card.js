@@ -26,13 +26,24 @@ const colorScheme = [
     backgroundImage: "linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%)",
     colorScheme: "purple",
   },
+
+  {
+    backgroundImage: "linear-gradient( 135deg, #F5CBFF 10%, #C346C2 100%)",
+    colorScheme: "pink",
+  },
+  {
+    backgroundImage: "linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%)",
+    colorScheme: "orange",
+  },
+
   {
     backgroundImage: "linear-gradient( 135deg, #90F7EC 10%, #32CCBC 100%)",
     colorScheme: "green",
   },
   {
-    backgroundImage: "linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%)",
-    colorScheme: "orange",
+    backgroundImage:
+      "linear-gradient(-225deg, #22E1FF 0%, #1D8FE1 48%, #625EB1 100%)",
+    colorScheme: "blue",
   },
 ];
 
@@ -59,7 +70,7 @@ function Card({ topic, index }) {
         <Heading as="h3" size="md">
           {topic.name}
         </Heading>
-        {topic.icon}
+        {topic.icon ? topic.icon : ""}
       </HStack>
 
       <HStack align="center">
