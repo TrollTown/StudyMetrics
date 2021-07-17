@@ -71,12 +71,12 @@ create table Submodules (
 
 insert into Users
 values
-    (DEFAULT,'teacher1@gmail.com','TeacherOne','password1',True),
-    (DEFAULT,'teacher2@gmail.com','TeacherTwo','password2',True),
-    (DEFAULT,'teacher3@gmail.com','TeacherThree','password3',True),
-    (DEFAULT,'student1@gmail.com','StudentOne','password1',False),
-    (DEFAULT,'student2@gmail.com','StudentTwo','password2',False),
-    (DEFAULT,'student3@gmail.com','StudentThree','password3',False);
+    (DEFAULT,'teacher1@gmail.com','TeacherOne','$pbkdf2-sha512$25000$cm6t1dp77z0nxNjbm1Mq5Q$skpjXNKRkuUkXXt4jQyoJyh84DdG/bsi4cjqm/9bKjQfWPe6PA/tGb8sY0Y5zPtoHnJoa1tJQCg.J5fjkUeOYA',True),
+    (DEFAULT,'teacher2@gmail.com','TeacherTwo','$pbkdf2-sha512$25000$UmrtPcfYG4PQGmNsbY0Rog$oR3QyVZX0JfnZ6iE2ywGMjXgtaBohwbBnJLx98HIr1oep4R/Yw/zkUUFmFYlwBBMF9V6bdiDN.KpbZd8J0EA5w',True),
+    (DEFAULT,'teacher3@gmail.com','TeacherThree','$pbkdf2-sha512$25000$.L/X2vtfi1HK.V9LCUFojQ$YK9IBlTgq1n8xzqAlLw1L90OF8BZPupEt1LsUIjNAPV4j1sAX6MoCn7hGL1EJ1iUMErVEcc5cUYM6UYf.0qISw',True),
+    (DEFAULT,'student1@gmail.com','StudentOne','$pbkdf2-sha512$25000$S2kNYewdI8QYg9AaAyCk1A$Pzca5D4.FrGI8bUrYD1l0ipXVQgNEyDlo1G8EmS36/sfcxd.BXxnc1bpnWcEzhgRX2tMGnB1UBF9EFByKpJrHg',False),
+    (DEFAULT,'student2@gmail.com','StudentTwo','$pbkdf2-sha512$25000$oPQ.p/T.39u7N.bcG.Ocsw$UOIZdKRKZLBDgJlWQtbEYlnQn15Z6.8zm8rMYXV3ZWjcaNMddAysO76TznfIynjP5iXLOpVXOcg38fT5KOGevA',False),
+    (DEFAULT,'student3@gmail.com','StudentThree','$pbkdf2-sha512$25000$NCYkxBgDAKC01roX4lzLOQ$qvaPMXC5ogbgBXQ4KlqK7sisKojCIl8pPuTl9v32x.Wl50Rq9sWtBSYSAlGLoL2eH7BElW8gzNP.jhgWTyscug',False);
 
 insert into Subjects
 values
