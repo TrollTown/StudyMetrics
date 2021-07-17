@@ -15,18 +15,20 @@ def root():
 def register():
     flask_app.logger.error("BEFORE HELLLLOOOOOO")
     try:
+        flask_app.logger.error(str(request))
         content = request.json
+        flask_app.logger.error(str(content))
+        name = content['name']
+        flask_app.logger.error(name)
+        email = content['email']
+        flask_app.logger.error(email)
+        password = content['password']
+        flask_app.logger.error(password)
+        userType = content['userType']
+        flask_app.logger.error(userType)
     except Exception as e:
         flask_app.logger.error("EXCEPTION")
     flask_app.logger.error("HELLLLOOOOOO")
-    name = content['name']
-    flask_app.logger.error(name)
-    email = content['email']
-    flask_app.logger.error(email)
-    password = content['password']
-    flask_app.logger.error(password)
-    userType = content['userType']
-    flask_app.logger.error(userType)
     users = getUserByEmail(email)
     isTeacher = None
     if len(users) != 0:
