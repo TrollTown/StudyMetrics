@@ -1,0 +1,11 @@
+[Unit]
+Description=uWSGI instance to serve hackathon_backend_production
+After=network.target
+[Service]
+User=jenkins
+Group=www-data
+WorkingDirectory =/opt/production/hackathon2021/backend
+Environment="PATH=/opt/production/hackathon2021/backend/venv/bin"
+ExecStart=/opt/production/hackathon2021/backend/venv/bin/uwsgi --ini hackathon_backend_production.ini
+[Install]
+WantedBy=multi-user.target
