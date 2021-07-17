@@ -90,7 +90,6 @@ def addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, 
     cur = conn.cursor()
 
     cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer , result, approved) \
-        VALUES f({questionID}, {studentID}, {finish_time}, {attempt}, {masteredQ}, {nextAttempt}, {student_answer}, {result}, {approved})")
-
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", [questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer, result, approved])
     conn.commit()
     conn.close()
