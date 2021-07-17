@@ -91,6 +91,36 @@ def getQuestionByID(questionID):
 	''',[questionID])
 	return cur.fetchall()[0]
 
+def getSubjectByID(subjectID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select *
+		from Subjects
+		where subjectID=%s
+	''',[subjectID])
+	return cur.fetchall()[0]
+
+def getModuleByID(moduleID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select *
+		from Modules
+		where moduleID=%s
+	''',[moduleID])
+	return cur.fetchall()[0]
+
+def getSubmoduleByID(submoduleID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select *
+		from Submodules
+		where submoduleID=%s
+	''',[submoduleID])
+	return cur.fetchall()[0]
+
 def getModuleByID(moduleID):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
 	cur = conn.cursor()
