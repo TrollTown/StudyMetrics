@@ -18,7 +18,7 @@ create table Users (
 );
 
 create table Teaches (
-    classID   integer,
+    classID   serial,
     teacherID   integer,
     className   text,
     subjectID   integer,
