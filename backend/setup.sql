@@ -135,7 +135,9 @@ values
     (DEFAULT,1,'Conjugate Theorems'),
     (DEFAULT,1,'Exponential Form'),
     (DEFAULT,1,'Trigonometric Identities'),
-    (DEFAULT,2,'U-substitution');
+    (DEFAULT,2,'U-substitution'),
+    (DEFAULT,2,'Integration by Parts'),
+    (DEFAULT,2,'Partial Fraction Integration');
 
 insert into Questions
 values 
