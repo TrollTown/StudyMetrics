@@ -63,6 +63,25 @@ def get_question_by_ID():
     resp = getQuestionDataByID(questionID)
     return json.dumps(resp)
 
+
+@flask_app.route("/get_subject_by_ID", methods=['GET'])
+def get_subject_by_ID():
+    subjectID = request.args.get('subjectID')
+    resp = getSubjectDataByID(subjectID)
+    return json.dumps(resp)
+
+@flask_app.route("/get_module_by_ID", methods=['GET'])
+def get_module_by_ID():
+    moduleID = request.args.get('moduleID')
+    resp = getModuleDataByID(moduleID)
+    return json.dumps(resp)
+
+@flask_app.route("/get_submodule_by_ID", methods=['GET'])
+def get_submodule_by_ID():
+    submoduleID = request.args.get('submoduleID')
+    resp = getSubmoduleDataByID(submoduleID)
+    return json.dumps(resp)
+
 #get list of unapproved questions
 @flask_app.route("/get_unapproved_questions", methods=['GET'])
 def get_unapproved_questions(teacherID):

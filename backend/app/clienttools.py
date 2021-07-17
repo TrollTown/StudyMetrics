@@ -19,6 +19,33 @@ def getQuestionDataByID(questionID):
 		'starred'  : qData[10]
 	}
 
+def getSubjectDataByID(subjectID):
+	data = getSubjectByID(subjectID)
+	return {
+		'subjectID': data[0],
+		'subjectName':	data[1]
+	}
+
+
+def getModuleDataByID(moduleID):
+	data = getModuleByID(moduleID)
+	return {
+		'moduleID': data[0],
+		'subjectID': data[1],
+		'moduleName': data[2]
+	}
+
+
+def getSubmoduleDataByID(submoduleID):
+	data = getSubmoduleByID(submoduleID)
+	return {
+		'submoduleID': data[0],
+		'moduleID': data[1],
+		'submoduleName': data[2]
+	}
+
+
+
 def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodule
 	history = getHistoryByStudentID(studentID)
 	groups = {}
