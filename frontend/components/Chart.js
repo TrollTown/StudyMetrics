@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Radar } from "react-chartjs-2";
 
@@ -23,7 +24,11 @@ const options = {
 };
 
 function Chart() {
-  return <Radar data={data} options={options} width={500} height={500} />;
+  return (
+    <Box w={500}>
+      <Radar data={data} options={options} width={500} height={500} />
+    </Box>
+  );
 }
 
 export default Chart;

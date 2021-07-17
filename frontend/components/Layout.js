@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <Flex minH="100vh">
       <Sidebar />
-      <main style={{ padding: "1em" }}>{children}</main>
+      <main style={{ padding: "2em" }}>{children}</main>
     </Flex>
   );
 }
