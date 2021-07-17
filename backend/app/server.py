@@ -28,6 +28,7 @@ def register():
         else:
             isTeacher = True
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
+        return jsonify({"result" : "success"})
 
 @flask_app.route('/login', methods=['POST'])
 def login():
