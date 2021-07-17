@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify
 from dotenv import load_dontenv
 
-load_dontenv()
+load_dotenv()
 flask_app = Flask(__name__)
 flask_app.config["SECRET_KEY"] = FLASK_SECRET_KEY
 
