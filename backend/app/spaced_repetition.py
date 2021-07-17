@@ -3,6 +3,7 @@
 
 #if MasteredQ == False and Attempt < 3 --> give question
 from datetime import datetime
+import time
 import psycopg2
 
 def selectRevisionQ(studentID):
@@ -20,7 +21,7 @@ def selectRevisionQ(studentID):
         masteredQ = question[4] # boolean
         nextAttempt = question[5] #datetime
         
-        currentTime = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+        currentTime = time.time()
 
         if (counter >= 5):
             break
