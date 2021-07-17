@@ -195,3 +195,12 @@ def getAllSubjectIDs():
 		select subjectIDs from Subjects
 	''')
 	return cur.fetchall()
+
+def getHistoryEntry(questionID,studentID,finish_time):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select * from History
+		where questionID=%s, studentID=%s, finish_time=%s
+	''',[questionID,studentID,finish_time])
+	return cur.fetchall()

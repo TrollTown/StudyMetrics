@@ -1,6 +1,5 @@
-from backend.app.dbtools import getSubmoduleNameByID
-from app.dbtools import getSubmoduleIDsByModuleID
 from app.dbtools import *
+from app.history import *
 from datetime import datetime
 import time
 
@@ -138,5 +137,12 @@ def getEntireLevelProgress(studentID,levelType,parentLevelID):
 			'progress': getLevelProgress(studentID,levelType,id)
 		})
 
-
 	return retVal
+
+def approveAnswer(questionID,studentID,finish_time,result):
+	entry = getHistoryEntry(questionID,studentID,finish_time)
+	# new entry
+	addHistory2Database(questionID, studentID, finish_time, entry[3], entry[4], entry[5], entry[6], result, True)
+	return {
+		'result':'success'
+	}
