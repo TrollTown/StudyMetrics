@@ -2,7 +2,6 @@
 from flask import jsonify, request
 from app import flask_app
 import json, os
-from app.whiteboard import save_canvas, load_canvas
 from app.dbtools import *
 from passlib.hash import pbkdf2_sha512
 import sys
