@@ -62,7 +62,7 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or subject or module
 		if key not in groups:
 			groups[key] = []
 
-		fTime = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+		fTime = int(fTime.strftime('%s'))
 		
 		groups[key].append((res,qDiff,fTime))
 
@@ -125,7 +125,7 @@ def getNextQuestionID(studentID,submoduleID):
 	lastTime = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
 		if sID == submoduleID:
-			lastTime[qID] = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+			lastTime[qID] = int(fTime.strftime('%s'))
 	items = list(lastTime.items())
 	items.sort(key=lambda x:x[1])
 	return {
