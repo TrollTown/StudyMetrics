@@ -109,7 +109,7 @@ def approve_answer():
     return json.dumps(resp)
 
 #get stats for student
-@flask_app.route("/get_stats_by_ID", methods=['GET'])
+@flask_app.route("/get_stats_by_id", methods=['GET'])
 def get_stats_by_ID():
     resp = radarGraphForStudent(request.args.get('studentID'), request.args.get('searchValue'), request.args.get('searchMode')) 
     return json.dumps(resp)
@@ -130,11 +130,9 @@ def get_class_list():
 #submit question
 @flask_app.route("/upload_question", methods=['POST'])
 def upload_question():
-    payload = request.get_json()
     # need to update history 
     # load_canvas grabs array from database
-    uploadQuestion(payload['subjectID'],payload['moduleID'],payload['submoduleID'],payload['questionText'],payload['questionType'],payload['answer'],payload['photo'],payload['difficulty'],payload['authorID'])
-
+    uploadQuestion(request.args.get('subjectID'),request.args.get('moduleID'),request.args.get('submoduleID'),request.args.get('questionText'),request.args.get('questionType'),request.args.get('answer'),request.args.get('photo'),request.args.get('difficulty'),request.args('authorID'))
     # dump_data()
     return json.dumps({'result':'success'})
 
@@ -155,7 +153,7 @@ def get_next_question():
     resp = getNextQuestion(request.args.get('studentID'), request.args.get('submoduleID')) # load_canvas grabs array from database
 
     # dump_data()
-    return json.dumps(resp)$
+    return json.dumps(resp)
 
 # Get the next question to do
 @flask_app.route("/get_entire_level_progress", methods=['GET'])
