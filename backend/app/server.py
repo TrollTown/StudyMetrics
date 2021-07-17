@@ -101,18 +101,17 @@ def get_revision_questions():
     resp = selectRevisionQ(request.args.get('studentID'))
     return json.dumps(resp)
 
-#approve old answers
-@flask_app.route("/approve_answer", methods=['GET'])
-def approve_answer():
-    payload = request.get_json()
-    resp = approveAnswer(payload['questionID'],payload['studentID'],payload['finish_time'],payload['result'])
-    return json.dumps(resp)
+# #approve old answers
+# @flask_app.route("/approve_answer", methods=['GET'])
+# def approve_answer():
+#     payload = request.get_json()
+#     resp = approveAnswer(payload['questionID'],payload['studentID'],payload['finish_time'],payload['result'])
+#     return json.dumps(resp)
 
 #get stats for student
 @flask_app.route("/get_stats_by_ID", methods=['GET'])
 def get_stats_by_ID():
-    payload = request.get_json()
-    resp = radarGraphForStudent(payload['studentID'], payload['searchValue'], payload['searchMode']) 
+    resp = radarGraphForStudent(request.args.get('studentID'), request.args.get('searchValue'), request.args.get('searchMode')) 
     return json.dumps(resp)
 
 #get stats for student
@@ -131,42 +130,34 @@ def get_class_list():
 #submit question
 @flask_app.route("/upload_question", methods=['POST'])
 def upload_question():
-    payload = request.get_json()
     # need to update history 
     # load_canvas grabs array from database
-    resp = submitQuestion(payload['subjectID'],payload['moduleID'],payload['submoduleID'],payload['questionText'],payload['questionType'],payload['answer'],payload['photo'],payload['difficulty'],payload['authorID'])
-
+    uploadQuestion(request.args.get('subjectID'),request.args.get('moduleID'),request.args.get('submoduleID'),request.args.get('questionText'),request.args.get('questionType'),request.args.get('answer'),request.args.get('photo'),request.args.get('difficulty'),request.args('authorID'))
     # dump_data()
-    return json.dumps(resp)
+    return json.dumps({'result':'success'})
 
 # Question submission
 @flask_app.route("/submit_answer", methods=['POST'])
 def submit_answer():
-    payload = request.get_json()
+    payload = request.json
     # need to update history 
     resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer']) # load_canvas grabs array from database
 
     # dump_data()
-    return json.dumps(resp)
+    return json.dumps({'result':resp})
 
 # Get the next question to do
 @flask_app.route("/get_next_question", methods=['GET'])
 def get_next_question():
-    payload = request.get_json()
     # need to update history 
-    resp = getNextQuestion(payload['studentID'], payload['submoduleID']) # load_canvas grabs array from database
-
-    # dump_data()
+    resp = getNextQuestionID(request.args.get('studentID'), request.args.get('submoduleID')) # load_canvas grabs array from database
     return json.dumps(resp)
 
 # Get the next question to do
 @flask_app.route("/get_entire_level_progress", methods=['GET'])
 def get_entire_level_progress():
-    payload = request.get_json()
     # need to update history 
-    resp = getEntireLevelProgress(payload['studentID'], payload['levelType'],payload['parentLevelID']) # load_canvas grabs array from database
-
-    # dump_data()
+    resp = getEntireLevelProgress(request.args.get('studentID'), request.args.get('levelType'),request.args.get('parentLevelID')) # load_canvas grabs array from database
     return json.dumps(resp)
 
 
@@ -186,4 +177,10 @@ def get_class_list_by_student_ID():
     resp = getClassListByStudentID(payload['studentID']) # load_canvas grabs array from database
 
     # dump_data()
+    return json.dumps(resp)
+
+@flask_app.route("/approve_answer", methods=['POST'])
+def approve_answer():
+    payload = request.get_json()
+    resp = approveAnswer(payload['questionID'],payload['studentID'],payload['finish_time'],payload['result'])
     return json.dumps(resp)
