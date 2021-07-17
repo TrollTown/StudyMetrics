@@ -118,7 +118,6 @@ def addHistory(qID,sID,fTime,ans,res,approved):
 		insert into History
 		values (%s,%s,%s,%s,%s,%s)
 	''',[qID,sID,fTime,ans,res,approved])
-	return cur.fetchall()
 
 def addUser(email,name,passwd,isTeacher):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = "hackathon1234")
