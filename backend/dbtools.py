@@ -111,20 +111,29 @@ def getQuestionsBySubmodule(submoduleID):
 	''',[submoduleID])
 	return cur.fetchall()
 
-def addHistory(qID,sID,fTime,attempt, masteredQ, nextAttempt, ans, res,approved):
+def addHistory(qID,sID,fTime,attempt, masteredQ, nextAttempt, answer, res,approved):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = "hackathon1234")
 	cur = conn.cursor()
 	cur.execute('''
 		insert into History
 		values (%s,%s,%s,%s,%s,%s,%s,%s)
-	''',[qID,sID,fTime,attempt, masteredQ, nextAttempt, ans, res,approved])
+	''',[qID,sID,fTime,attempt, masteredQ, nextAttempt, answer, res,approved])
 	return cur.fetchall()
 
 def addUser(email,name,passwd,isTeacher):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = "hackathon1234")
 	cur = conn.cursor()
 	cur.execute('''
-		insert into History (email, name, passwd, isTeacher)
+		insert into Users (email, name, passwd, isTeacher)
 		values (%s,%s,%s,%s,%s,%s)
 	''',[email,name,passwd,isTeacher])
+	return cur.fetchall()
+
+def getUnapproved():
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = "hackathon1234")
+	cur = conn.cursor()
+	cur.execute('''
+		select questionID from History
+		where not approved
+	''')
 	return cur.fetchall()
