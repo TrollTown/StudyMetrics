@@ -60,7 +60,7 @@ def login():
 def get_question_by_ID():
     questionID = request.args.get('questionID')
     flask_app.logger.error(questionID)
-    resp = getQuestionByID(questionID)
+    resp = getQuestionDataByID(questionID)
     return json.dumps(resp)
 
 #get list of unapproved questions
