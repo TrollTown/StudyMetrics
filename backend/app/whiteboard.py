@@ -2,7 +2,7 @@ import psycopg2
 #what do I parameters do i put into line 5 and line 22???
 
 def save_canvas(canvas_id, data_url):
-    conn = psycopg2.connect(database="testdb", user = "postgres", password = "pass123", host = "127.0.0.1", port = "5432") #connecting to database
+    conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = "hackathon1234")
 
     cur = conn.cursor()
     cur.execute('''CREATE TABLE BOARDSTABLE
@@ -19,7 +19,7 @@ def save_canvas(canvas_id, data_url):
     return {}
 
 def load_canvas(canvas_id):
-    conn = psycopg2.connect(database = "testdb", user = "postgres", password = "pass123", host = "127.0.0.1", port = "5432")
+    conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = "hackathon1234")
     cur = conn.cursor()
 
     cur.execute("SELECT id, dataurl")
