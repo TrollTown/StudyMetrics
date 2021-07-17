@@ -4,7 +4,7 @@
 #if MasteredQ == False and Attempt < 3 --> give question
 from datetime import datetime
 import time
-import psycopg2
+from app.dbtools import getHistoryByStudentID
 
 def selectRevisionQ(studentID):
     studentQHistory = getHistoryByStudentID(studentID)  #array of Tuples
