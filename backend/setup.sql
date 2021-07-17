@@ -20,13 +20,13 @@ create table Users (
 create table Teaches (
     classID   integer,
     teacherID   integer,
-    className   text
+    className   text,
     primary key (classID)
 );
 
 create table Classes (
     classID   serial,
-    studentID   integer
+    studentID   integer,
     primary key (classID)
 );
 
