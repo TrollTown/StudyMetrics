@@ -12,11 +12,11 @@ def getQuestionDataByID(questionID):
 		'submoduleID' : qData[3],
 		'questionText' : qData[4]  ,
 		'questionType' : qData[5] ,
-		'answer'  : qData[5] ,
-		'photo'   : qData[6]  ,
-		'difficulty' : qData[7],
-		'authorID'  : qData[8],
-		'starred'  : qData[9]
+		'answer'  : qData[6] ,
+		'photo'   : qData[7]  ,
+		'difficulty' : qData[8],
+		'authorID'  : qData[9],
+		'starred'  : qData[10]
 	}
 
 def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodule
