@@ -64,8 +64,8 @@ def get_question_by_ID():
     flask_app.logger.error(resp)
     questionText = resp['questionText']
     questionTextSplit = questionText.split(' ')
-    answer = questionTextSplit[1].split('|')
-    resp['questionText'] = questionTextSplit[0][:-1]
+    answer = questionTextSplit[-1].split('|')
+    resp['questionText'] = ' '.join(questionTextSplit[0:-1])[:-1]
     resp['answers'] = answer
     return json.dumps(resp)
 
