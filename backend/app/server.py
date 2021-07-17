@@ -31,6 +31,7 @@ def register():
     flask_app.logger.error(userType)
     flask_app.logger.error("HELLLLOOOOOO")
     users = getUserByEmail(email)
+    flask_app.logger.error(users)
     isTeacher = None
     if len(users) != 0:
         return jsonify({"result" : "failed", "reason" : "Email is already registered."}),400
