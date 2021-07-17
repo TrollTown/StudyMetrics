@@ -82,7 +82,7 @@ def updateHistory(questionID, studentID, answer):
             result = True
 
     # Adding new entry: Inserting all values into a new row in the history table
-    addHistory2Database(questionID, studentID, questionInfo[2], masteredQ, nextAttempt, answer, result, approved)
+    addHistory2Database(questionID, studentID, datetime.datetime.now(), masteredQ, nextAttempt, answer, result, approved)
 
     return result
 
