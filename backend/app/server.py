@@ -8,6 +8,7 @@ import sys
 
 @flask_app.route('/', methods=['GET'])
 def root():
+    flask_app.logger.error("ROOT LOG")
     return jsonify({'response' : 'Hello'}), 200
 
 @flask_app.route('/register', methods=['GET', 'POST'])
