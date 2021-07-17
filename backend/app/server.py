@@ -43,17 +43,12 @@ def register():
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
         return jsonify({"result" : "success"}), 200
 
-<<<<<<< HEAD
-
-@flask_app.route('/login', methods=['GET', 'POST'])
-=======
 @flask_app.errorhandler(500)
 def internal_error(exception):
     flask_app.logger.error(exception)
     return render_template('500.html'), 500
 
 @flask_app.route('/login', methods=['POST'])
->>>>>>> 54b8c80b3ff2e6d48fbd1e893e50157ba5b3bbb1
 def login():
     pass
 
