@@ -101,12 +101,12 @@ def get_revision_questions():
     resp = selectRevisionQ(request.args.get('studentID'))
     return json.dumps(resp)
 
-#approve old answers
-@flask_app.route("/approve_answer", methods=['GET'])
-def approve_answer():
-    payload = request.get_json()
-    resp = approveAnswer(payload['questionID'],payload['studentID'],payload['finish_time'],payload['result'])
-    return json.dumps(resp)
+# #approve old answers
+# @flask_app.route("/approve_answer", methods=['GET'])
+# def approve_answer():
+#     payload = request.get_json()
+#     resp = approveAnswer(payload['questionID'],payload['studentID'],payload['finish_time'],payload['result'])
+#     return json.dumps(resp)
 
 #get stats for student
 @flask_app.route("/get_stats_by_ID", methods=['GET'])
@@ -140,11 +140,12 @@ def upload_question():
 @flask_app.route("/submit_answer", methods=['POST'])
 def submit_answer():
     payload = request.get_json()
+
     # need to update history 
     resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer']) # load_canvas grabs array from database
 
     # dump_data()
-    return json.dumps(resp)
+    return json.dumps({'result':resp})
 
 # Get the next question to do
 @flask_app.route("/get_next_question", methods=['GET'])
