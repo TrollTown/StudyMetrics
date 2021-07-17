@@ -3,6 +3,7 @@
 
 #if MasteredQ == False and Attempt < 3 --> give question
 from datetime import datetime
+import psycopg2
 
 def selectRevisionQ(studentID):
     studentQHistory = getHistoryByStudentID(studentID)  #array of Tuples
@@ -28,4 +29,7 @@ def selectRevisionQ(studentID):
             counter += 1
 
     return revision
+
+
+    
 
