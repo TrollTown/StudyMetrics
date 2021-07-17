@@ -7,7 +7,7 @@ drop table Modules;
 drop table Submodules;
 
 create table Users (
-	id          serial,
+	id          serial not null,
 	email       text,
 	name		text,
 	passwd		text,

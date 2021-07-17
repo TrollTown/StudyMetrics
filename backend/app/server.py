@@ -71,7 +71,7 @@ def get_unapproved_questions():
 def get_revision_questions():
     pass 
 
-#approve old answers?
+#approve old answers
 @flask_app.route("/approve_answer", methods=['GET'])
 def approve_answer():
     pass
