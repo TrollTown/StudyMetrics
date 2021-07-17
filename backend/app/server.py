@@ -10,7 +10,7 @@ from passlib.hash import pbkdf2_sha512
 def root():
     return jsonify({'response' : 'Hello'}), 200
 
-@flask_app.route('/register', methods=['POST'])
+@flask_app.route('/register', methods=['GET', 'POST'])
 def register():
     content = request.json
     print(content)
@@ -35,13 +35,13 @@ def register():
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
         return jsonify({"result" : "success"})
 
-@flask_app.route('/login', methods=['POST'])
+@flask_app.route('/login', methods=['GET', 'POST'])
 def login():
     pass
 
 #Nathan: code for saving students' whiteboard
 # what do i put for the url??
-@flask_app.route("/save_whiteboard", methods=['POST'])
+@flask_app.route("/save_whiteboard", methods=['GET', 'POST'])
 def submit_canvas_from_database():
     payload = request.get_json()
     resp = save_canvas(payload['canvas_id'], payload['canvas_coordinates']) # save_canvas function saves to database
@@ -50,7 +50,7 @@ def submit_canvas_from_database():
 
 #Nathan: code for loading a saved whiteboard
 # what do i put for the url??
-@flask_app.route("/load_whiteboard", methods=['POST'])
+@flask_app.route("/load_whiteboard", methods=['GET', 'POST'])
 def load_canvas_from_database():
     payload = request.get_json()
     resp = load_canvas(payload['canvas_id']) # load_canvas grabs array from database
