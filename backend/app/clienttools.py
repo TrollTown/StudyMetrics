@@ -222,6 +222,8 @@ def getClassList(teacherID):
 		})
 	return retVal
 
+# def getSubjectListFromC
+
 # def getClassRadar(classID):
 # 	c = getClassbyClassID(classID)
 # 	sName = c[]
