@@ -83,20 +83,24 @@ export default function Revise() {
           </HStack>
         </VStack>
         <Text maxW="50em">
-          Lorem ipsum dolor si t amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          Consider the statement: ‘If n is even, then if n is a multiple of 3,
+          then n is a multiple of 6’. Which of the following is the negation of
+          this statement?
         </Text>
         <RadioGroup onChange={setAnswer} value={answer}>
           <VStack>
-            <Radio value="1">Answer 1</Radio>
-            <Radio value="2">Answer 2</Radio>
-            <Radio value="3">Answer 3</Radio>
-            <Radio value="4">Answer 4</Radio>
+            <Radio value="1">n is odd and n is not a multiple of 3 or 6.</Radio>
+            <Radio value="2">
+              n is even and n is a multiple of 3 but not a multiple of 6.
+            </Radio>
+            <Radio value="3">
+              If n is even, then n is not a multiple of 3 and n is not a
+              multiple of 6.
+            </Radio>
+            <Radio value="4">
+              If n is odd, then if n is not a multiple of 3 then n is not a
+              multiple of 6.
+            </Radio>
           </VStack>
         </RadioGroup>
         <Button rightIcon={<ArrowForwardIcon />} colorScheme="blue">
