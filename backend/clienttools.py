@@ -39,3 +39,5 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodul
 		retVal[key] = elo
 	return retVal
 
+
+
