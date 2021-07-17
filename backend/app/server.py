@@ -5,18 +5,24 @@ import json, os
 from app.whiteboard import save_canvas, load_canvas
 from app.dbtools import *
 from passlib.hash import pbkdf2_sha512
+import sys
 
 @flask_app.route('/', methods=['GET'])
 def root():
     return jsonify({'response' : 'Hello'}), 200
 
-@flask_app.route('/register', methods=['POST'])
+@flask_app.route('/register', methods=['GET', 'POST'])
 def register():
     content = request.json
+    print(content, file=sys.stderr)
     name = content['name']
+    print(name, file=sys.stderr)
     email = content['email']
+    print(email, file=sys.stderr)
     password = content['password']
+    print(password, file=sys.stderr)
     userType = content['userType']
+    print(userType, file=sys.stderr)
     users = getUserByEmail(email)
     isTeacher = None
     if len(users) != 0:
@@ -28,14 +34,15 @@ def register():
         else:
             isTeacher = True
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
+        return jsonify({"result" : "success"})
 
-@flask_app.route('/login', methods=['POST'])
+@flask_app.route('/login', methods=['GET', 'POST'])
 def login():
     pass
 
 #Nathan: code for saving students' whiteboard
 # what do i put for the url??
-@flask_app.route("/save_whiteboard", methods=['POST'])
+@flask_app.route("/save_whiteboard", methods=['GET', 'POST'])
 def submit_canvas_from_database():
     payload = request.get_json()
     resp = save_canvas(payload['canvas_id'], payload['canvas_coordinates']) # save_canvas function saves to database
@@ -44,7 +51,7 @@ def submit_canvas_from_database():
 
 #Nathan: code for loading a saved whiteboard
 # what do i put for the url??
-@flask_app.route("/load_whiteboard", methods=['POST'])
+@flask_app.route("/load_whiteboard", methods=['GET', 'POST'])
 def load_canvas_from_database():
     payload = request.get_json()
     resp = load_canvas(payload['canvas_id']) # load_canvas grabs array from database
