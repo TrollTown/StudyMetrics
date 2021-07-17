@@ -98,8 +98,7 @@ def get_unapproved_questions():
 #get list of curated training questions
 @flask_app.route("/get_revision_questions", methods=['GET'])
 def get_revision_questions():
-    payload = request.get_json()
-    resp = selectRevisionQ(payload['studentID'])
+    resp = selectRevisionQ(request.args.get('studentID'))
     return json.dumps(resp)
 
 #approve old answers
