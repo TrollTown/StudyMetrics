@@ -16,20 +16,12 @@ def root():
 
 @flask_app.route('/register', methods=['POST'])
 def register():
-    flask_app.logger.error("BEFORE HELLLLOOOOOO")
-    flask_app.logger.error(str(request))
     content = request.json
     flask_app.logger.error(str(content))
-    flask_app.logger.error(str("12345678"))
     name = content['name']
-    flask_app.logger.error(name)
     email = content['email']
-    flask_app.logger.error(email)
     password = content['password']
-    flask_app.logger.error(password)
     userType = content['userType']
-    flask_app.logger.error(userType)
-    flask_app.logger.error("HELLLLOOOOOO")
     users = getUserByEmail(email)
     flask_app.logger.error(users)
     isTeacher = None
