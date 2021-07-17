@@ -14,6 +14,7 @@ import psycopg2
 import datetime
 import os
 from app.dbtools import *
+from app import flask_app
 
 # def checkAnswer(questionID,answer)
 
