@@ -129,15 +129,6 @@ def getQuestionsBySubmodule(submoduleID):
 	''',[submoduleID])
 	return cur.fetchall()
 
-def addUser(email,name,passwd,isTeacher):
-	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
-	cur = conn.cursor()
-	cur.execute('''
-		insert into Users (email, name, passwd, isTeacher)
-		values (%s,%s,%s,%s,%s,%s)
-	''',[email,name,passwd,isTeacher])
-	return cur.fetchall()
-
 def getAllHistory():
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
 	cur = conn.cursor()
