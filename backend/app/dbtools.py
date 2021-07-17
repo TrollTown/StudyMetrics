@@ -257,7 +257,7 @@ def getClassIDsByTeacherID(teacherID):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
 	cur = conn.cursor()
 	cur.execute('''
-		select classID from Teaches
+		select classID from Teachers
 		where teacherID=%s
 	''',[teacherID])
 	return cur.fetchall()
