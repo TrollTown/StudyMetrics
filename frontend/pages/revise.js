@@ -43,7 +43,7 @@ export default function Revise() {
     };
 
     const res = await fetch(
-      `https://api.production.hackathon.outki.org/get_question_by_ID?questionID=${questionID}`,
+      `https://api.production.hackathon.outki.org/get_revision_questions?studentID=5`,
       options
     );
     const data = await res.json();
