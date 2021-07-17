@@ -96,7 +96,7 @@ values
 
 insert into Teaches
 values 
-    (DEFAULT,1,"Year 12 Math 2021",1]),
+    (DEFAULT,1,"Year 12 Math 2021",1),
     (DEFAULT,1,"Year 11 Math 2021",6),
     (DEFAULT,1,"Year 10 Math 2021",6),
     (DEFAULT,1,"Year 9 Math 2021",6;
