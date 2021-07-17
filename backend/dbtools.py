@@ -31,6 +31,7 @@ def getHistoryByStudentID(studentID):
       select *
       from History
       where studentID=%s
+      order by finish_time
     ''',[studentID])
 
 def getQuestionsBySubject(subjectID):
