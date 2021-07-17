@@ -19,8 +19,8 @@ def selectRevisionQ(studentID):
     for question in studentQHistory:
         attempts += 1
         questionID = question[0]
-        masteredQ = question[4] # boolean
-        nextAttempt = question[5] #datetime
+        masteredQ = question[3] # boolean
+        nextAttempt = question[4] #datetime
         
         currentTime = time.time()
 
