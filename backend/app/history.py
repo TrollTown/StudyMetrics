@@ -69,8 +69,9 @@ def updateHistory(questionID, studentID, answer):
     #default true for mc or numeric
     approved = False
     result = False
-
+    
     questionInfo = getQuestionByID(questionID)
+    flask_app.logger.error(questionInfo)
     questionType = questionInfo[5]
     questionSoln = questionInfo[6]
     #Note: if approved and result are false, then that means it was whiteboard input and hasn't been checked yet
