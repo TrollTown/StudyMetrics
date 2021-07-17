@@ -59,6 +59,9 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or subject or module
 			key = getSubjectNameByID(qData[2]) #if searhcing by subject, split on module
 		elif searchMode == 'module'  and qData[2]==searchVal:
 			key = getSubjectNameByID(qData[3]) #if searhcing by module, split on submodule
+		else: 
+			continue
+		
 		if key not in groups:
 			groups[key] = []
 
