@@ -6,8 +6,7 @@ const data = {
   datasets: [
     {
       label: "Your Performance",
-      //       data: [20, 60, 40, 50, 80, 60],
-      data: [2, 6, 4, 5, 8, 6],
+      data: [2, 9, 3, 5, 2, 3],
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",
       borderWidth: 1,
