@@ -1,5 +1,5 @@
-from backend.app.dbtools import getSubmoduleIDsByModuleID
-from dbtools import *
+from app.dbtools import getSubmoduleIDsByModuleID
+from app.dbtools import *
 from datetime import datetime
 import time
 

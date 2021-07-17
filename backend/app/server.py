@@ -2,10 +2,10 @@
 from flask import jsonify, request, render_template
 from app import flask_app
 import json, os
-from dbtools import *
-from clienttools import *
-from history import *
-from spaced_repetition import *
+from app.dbtools import *
+from app.clienttools import *
+from app.history import *
+from app.spaced_repetition import *
 from passlib.hash import pbkdf2_sha512
 import sys
 
