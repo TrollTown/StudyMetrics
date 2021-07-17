@@ -1,11 +1,11 @@
-from app.dbtools import *
+from dbtools import *
 from datetime import datetime
 import time
 
 def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodule
 	history = getHistoryByStudentID(studentID)
 	groups = {}
-	for qID,sID,fTime,sAns,res,approved in history:
+	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
 		if not approved:
 			continue
 		qData = getQuestionByID(qID)
@@ -39,5 +39,25 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodul
 		retVal[key] = elo
 	return retVal
 
+def getUnapproved():
+	history = getAllHistory()
+	allQuestions = {}
+	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
+		if (qID,sID,fTime) in allQuestions and approved:
+			del allQuestions[(qID,sID,fTime)]
+		elif not approved:
+			allQuestions[(qID,sID,fTime)] = [qID,sID,fTime,sAns]
+		
+	retVal = [] 
+	for qID,sID,fTime,sAns in allQuestions.values():
+		retVal.append({
+			'questionID': qID,
+			'studentID': sID,
+			'finish_time': fTime,
+			'student_answer':	sAns
+		})
+	return retval
+	
+	
 
 
