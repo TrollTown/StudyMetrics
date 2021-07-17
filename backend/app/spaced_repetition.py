@@ -14,9 +14,11 @@ def selectRevisionQ(studentID):
     revision = [0] * 5
 
     counter = 0
+
+    attempts = 0 
     for question in studentQHistory:
+        attempts += 1
         questionID = question[0]
-        attempts = question[3]  # integer
         masteredQ = question[4] # boolean
         nextAttempt = question[5] #datetime
         
