@@ -85,10 +85,10 @@ values
 insert into Modules
 values
     (1,1,'Complex Numbers'),
-    (2,1,'Integration');
-    (3,1,'Mechanics');
-    (4,1,'Vectors');
-    (5,1,'Proofs');
+    (2,1,'Integration'),
+    (3,1,'Mechanics'),
+    (4,1,'Vectors'),
+    (5,1,'Proofs'),
     (6,1,'Derivatives');
 
 insert into Submodules
