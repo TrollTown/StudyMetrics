@@ -98,8 +98,7 @@ def get_unapproved_questions():
 #get list of curated training questions
 @flask_app.route("/get_revision_questions", methods=['GET'])
 def get_revision_questions():
-    payload = request.get_json()
-    resp = selectRevisionQ(payload['studentID'])
+    resp = selectRevisionQ(request.args.get('studentID'))
     return json.dumps(resp)
 
 #approve old answers
@@ -126,8 +125,7 @@ def get_class_members():
 #get stats for student
 @flask_app.route("/get_class_list", methods=['GET'])
 def get_class_list():
-    payload = request.get_json()
-    resp = getClassList(payload['teacherID']) 
+    resp = getClassList(request.args.get('teacherID'))
     return json.dumps(resp)
 
 #submit question
