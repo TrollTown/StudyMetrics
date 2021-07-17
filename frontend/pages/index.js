@@ -1,11 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Button } from "@chakra-ui/react";
+import { Button, Flex, useColorMode } from "@chakra-ui/react";
+import Layout from "../components/Layout";
 
 export default function Home() {
   return (
-    <div>
+    <Layout>
       <Button colorScheme="blue">Chakra Button</Button>
-    </div>
+    </Layout>
   );
 }
