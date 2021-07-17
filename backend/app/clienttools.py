@@ -113,29 +113,29 @@ def getLevelProgress(studentID,level,levelID):
 		'progress': round(100*m/n)
 	}
 
-def getEntireLevelProgress(studentID,level,parentLevelID):
+def getEntireLevelProgress(studentID,levelType,parentLevelID):
 	ids = []
-	if level=='subject':
+	if levelType=='subject':
 		ids = getAllSubjectIDs()
-	elif level=='module':
+	elif levelType=='module':
 		ids = getModuleIDsBySubjectID(parentLevelID)
-	elif level=='submodule':
+	elif levelType=='submodule':
 		ids = getSubmoduleIDsByModuleID(parentLevelID)
 
 	retVal = {}
 	for id in ids:
 		name = ''
-		if level=='subject':
+		if levelType=='subject':
 			name = getSubjectNameByID(id)
-		elif level=='module':
+		elif levelType=='module':
 			name = getModuleNameByID(id)
-		elif level=='submodule':
+		elif levelType=='submodule':
 			name = getSubmoduleNameByID(id)
 		
 		retVal.append({
 			'id': id,
 			'name': name,
-			'progress': getLevelProgress(studentID,level,id)
+			'progress': getLevelProgress(studentID,levelType,id)
 		})
 
 
