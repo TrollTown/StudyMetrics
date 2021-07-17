@@ -16,17 +16,15 @@ create table Users (
 );
 
 create table History (
-    historyID   serial,
     questionID  integer,
     studentID   integer,
     finish_time timestamp,
-    attempt     integer,
     masteredQ   boolean,
     nextAttempt timestamp,
     student_answer   text,
     result      boolean,
     approved    boolean,
-    primary key (historyID)
+    primary key (questionID,studentID,finish_time)
 );
 
 create table Questions (
