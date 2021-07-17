@@ -1,6 +1,10 @@
--- multiple choice
--- numeric input
--- whiteboard input
+drop table Users;
+drop table History;
+drop table Questions;
+drop table Tags;
+drop table Subjects;
+drop table Modules;
+drop table Submodules;
 
 create table Users (
 	id          serial,
