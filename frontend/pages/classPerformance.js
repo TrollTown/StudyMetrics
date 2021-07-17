@@ -17,14 +17,14 @@ import Layout from "../components/Layout";
 import Card from "../components/Card";
 import React, { useState, useEffect } from "react";
 
-export default function Progress() {
+export default function classPerfomance() {
   useEffect(async () => {
     const options = {
       method: "GET",
     };
 
     const res = await fetch(
-      `https://api.production.hackathon.outki.org/get_stats_by_id?studentID=3&searchValue=1&searchMode=student`,
+      `https://api.production.hackathon.outki.org/get_stats_by_ID?studentID=4&searchValue=1&searchMode=subject`,
       options
     );
     const data = await res.json();

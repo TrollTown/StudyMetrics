@@ -18,8 +18,8 @@ import Card from "../components/Card";
 import React, { useState, useEffect } from "react";
 
 export default function Progress() {
-  //   const data = {
-  //     labels: ["Thing 1", "Thing 2", "Thing 3", "Thing 4", "Thing 5", "Thing 6"],
+  //   const graphData = {
+  //     labels: [],
   //     datasets: [
   //       {
   //         label: "Your Performance",
@@ -29,9 +29,9 @@ export default function Progress() {
   //         borderColor: "rgba(255, 99, 132, 1)",
   //         borderWidth: 1,
   //       },
+  //     ],
   //   };
-
-  //   data = {
+  //   const data = {
   //     Integration: 4,
   //     Derivatives: 6,
   //     Conics: 3,
@@ -41,20 +41,23 @@ export default function Progress() {
   //   };
 
   //   let categories = [];
-  //   console.log(Object.keys(data));
+  //   Object.keys(data).map((category) => categories.push(category));
+  //   let values = [];
+  //   datgraphData.forEach((element) => {});
+  //   Object.keys(data).map((category) => categories.push(category));
 
-  useEffect(async () => {
-    const options = {
-      method: "GET",
-    };
+  //   useEffect(async () => {
+  //     const options = {
+  //       method: "GET",
+  //     };
 
-    const res = await fetch(
-      `https://api.production.hackathon.outki.org/get_stats_by_id?studentID=4&searchValue=1&searchMode=subject`,
-      options
-    );
-    const data = await res.json();
-    console.log(data);
-  }, []);
+  //     const res = await fetch(
+  //       `https://api.production.hackathon.outki.org/get_stats_by_id?studentID=4&searchValue=1&searchMode=subject`,
+  //       options
+  //     );
+  //     const data = await res.json();
+  //     console.log(data);
+  //   }, []);
 
   return (
     <Layout>
