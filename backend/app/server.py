@@ -185,3 +185,9 @@ def get_class_list_by_student_ID():
 
     # dump_data()
     return json.dumps(resp)
+
+@flask_app.route("/approve_answer", methods=['POST'])
+def approve_answer():
+    payload = request.get_json()
+    resp = approveAnswer(payload['questionID'],payload['studentID'],payload['finish_time'],payload['result'])
+    return json.dumps(resp)
