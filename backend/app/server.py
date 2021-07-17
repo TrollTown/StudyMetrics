@@ -125,8 +125,7 @@ def get_class_members():
 #get stats for student
 @flask_app.route("/get_class_list", methods=['GET'])
 def get_class_list():
-    payload = request.get_json()
-    resp = getClassList(payload['teacherID']) 
+    resp = getClassList(request.args.get('teacherID'))
     return json.dumps(resp)
 
 #submit question
