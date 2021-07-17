@@ -126,11 +126,11 @@ def getSubmodulesByModuleID(moduleID):
 
 def getNextQuestionID(studentID,submoduleID):
 	history = getHistoryByStudentID(studentID)[::-1]
-	flask_app.logger.error(history)
 	lastTime = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
 		qData = getQuestionByID(qID)
 		qDataSubId = qData[3]
+		flask_app.logger.error(qDataSubId)
 		if qDataSubId == submoduleID:
 			flask_app.logger.error("GGGGGGGGGGGGGGGGGGGG")
 			lastTime[qID] = int(fTime.strftime('%s'))
