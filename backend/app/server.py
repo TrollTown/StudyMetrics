@@ -14,7 +14,7 @@ def root():
 @flask_app.route('/register', methods=['GET', 'POST'])
 def register():
     content = request.json
-    flask_app.logger.error(content)
+    flask_app.logger.error("HELLLLOOOOOO")
     name = content['name']
     flask_app.logger.error(name)
     email = content['email']
