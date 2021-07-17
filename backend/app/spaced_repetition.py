@@ -2,7 +2,6 @@
     #Day: 1, 3, 6 after start date
 
 #if MasteredQ == False and Attempt < 3 --> give question
-from datetime import datetime
 import time
 from app.dbtools import getHistoryByStudentID
 
