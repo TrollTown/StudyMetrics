@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 from app import flask_app
 import json, os
 from app.dbtools import *
@@ -41,6 +41,11 @@ def register():
             isTeacher = True
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
         return jsonify({"result" : "success"}), 200
+
+@flask_app.errorhandler(500)
+def internal_error(exception):
+    flask_app.logger.error(exception)
+    return render_template('500.html'), 500
 
 @flask_app.route('/login', methods=['GET', 'POST'])
 def login():
