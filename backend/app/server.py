@@ -2,10 +2,10 @@
 from flask import jsonify, request, render_template
 from app import flask_app
 import json, os
-from dbtools import *
-from clienttools import *
-from history import *
-from spaced_repetition import *
+from app.dbtools import *
+from app.clienttools import *
+from app.history import *
+from app.spaced_repetition import *
 from passlib.hash import pbkdf2_sha512
 import sys
 
@@ -42,11 +42,6 @@ def register():
             isTeacher = True
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
         return jsonify({"result" : "success"}), 200
-
-@flask_app.errorhandler(500)
-def internal_error(exception):
-    flask_app.logger.error(exception)
-    return render_template('500.html'), 500
 
 @flask_app.route('/login', methods=['POST'])
 def login():
