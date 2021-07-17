@@ -66,7 +66,7 @@ def get_question_by_ID():
     questionTextSplit = questionText.split(' ')
     answer = questionTextSplit[-1].split('|')
     resp['questionText'] = ' '.join(questionTextSplit[0:-1])[:-1]
-    resp['answers'] = answer[1:-1]
+    resp['options'] = answer[1:-1]
     return json.dumps(resp)
 
 
