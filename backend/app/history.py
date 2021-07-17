@@ -1,17 +1,17 @@
 """
-[P] QuestionID
-[P] StudentID
-[X] finish_time 
-[X] Attempt
-[X] MasteredQ
-[X] NextAttempt
-[P] WorkingOutPhoto
-[O] Result
-[X] Approved
+[P] QuestionID          1
+[P] StudentID           1
+[X] finish_time         1
+[X] Attempt             1
+[X] MasteredQ           1
+[X] NextAttempt         1
+[P] WorkingOutPhoto     1
+[O] Result              1
+[X] Approved            1
 """
-
-
 import time
+import psycopg2
+
 def updateHistory(questionID, studentID, answer, workingOutPhoto):
     finish_time = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
 
@@ -73,3 +73,18 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
         approved = True
         if (answer == questionSoln):
             result == True
+
+    # Adding new entry: Inserting all values into a new row in the history table
+    addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved)
+
+
+def addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved):
+    # TODO: Duno what to do in line 83
+    conn = psycopg2.connect(database = "testdb", user = "postgres", password = "pass123", host = "127.0.0.1", port = "5432")
+    cur = conn.cursor()
+
+    cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved) \
+        VALUES f({questionID}, {studentID}, {finish_time}, {attempt}, {masteredQ}, {nextAttempt}, {workingOutPhoto}, {result}, {approved})")
+
+    conn.commit()
+    conn.close()
