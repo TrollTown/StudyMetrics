@@ -13,10 +13,15 @@ def root():
 @flask_app.route('/register', methods=['POST'])
 def register():
     content = request.json
+    print(content)
     name = content['name']
+    print(name)
     email = content['email']
+    print(email)
     password = content['password']
+    print(password)
     userType = content['userType']
+    print(userType)
     users = getUserByEmail(email)
     isTeacher = None
     if len(users) != 0:
