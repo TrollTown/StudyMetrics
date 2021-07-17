@@ -9,8 +9,6 @@
 [O] Result              1
 [X] Approved            1
 """
-
-
 import time
 import psycopg2
 
@@ -81,7 +79,7 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
 
 
 def addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved):
-    
+    # TODO: Duno what to do in line 83
     conn = psycopg2.connect(database = "testdb", user = "postgres", password = "pass123", host = "127.0.0.1", port = "5432")
     cur = conn.cursor()
 
