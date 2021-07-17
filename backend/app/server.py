@@ -54,14 +54,13 @@ def login():
         return jsonify({"result" : "success", "token" : users[0][0]}), 200
     else:
         return jsonify({"result" : "failed", "reason" : "Login failed"}),400
-    
-
 
 #get question
 @flask_app.route("/get_question_by_ID", methods=['GET'])
 def get_question_by_ID():
-    payload = request.json
-    resp = getQuestionDataByID(payload['questionID'])
+    questionID = request.args.get('questionID')
+    flask_app.logger.error(questionID)
+    resp = getQuestionByID(questionID)
     return json.dumps(resp)
 
 #get list of unapproved questions
