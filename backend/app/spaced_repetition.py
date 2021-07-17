@@ -2,6 +2,7 @@
     #Day: 1, 3, 6 after start date
 
 #if MasteredQ == False and Attempt < 3 --> give question
+from datetime import datetime
 
 def selectRevisionQ(studentID):
     studentQHistory = getHistoryByStudentID(studentID)  #array of Tuples
@@ -16,10 +17,13 @@ def selectRevisionQ(studentID):
         questionID = question[0]
         attempts = question[3]  # integer
         masteredQ = question[4] # boolean
+        nextAttempt = question[5] #datetime
+        
+        currentTime = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
 
         if (counter >= 5):
             break
-        if (masteredQ == False and attempts < 3):
+        if (masteredQ == False and attempts < 3 and currentTime > nextAttempt):
             revision[counter] = questionID
             counter += 1
 
