@@ -4,29 +4,43 @@ import {
   Stack,
   Link as ChakraLink,
   VStack,
-  Button
+  Button,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { GiSpellBook } from "react-icons/gi";
-import { GiBrain } from "react-icons/gi";
+import { GiBrain, GiTeacher, GiSpellBook } from "react-icons/gi";
 import { IoIosSpeedometer } from "react-icons/io";
 import { RiQuestionnaireFill } from "react-icons/ri";
+import { FaFileUpload } from "react-icons/fa";
 import router from "next/router";
 
-function Sidebar() {
-  const items = [
-    { name: "progress", icon: <IoIosSpeedometer size={18} /> },
-    { name: "questions", icon: <RiQuestionnaireFill size={18} /> },
-    { name: "revise", icon: <GiBrain size={18} /> },
-  ];
+function Sidebar({ userType }) {
+  let items = [];
+  if (userType === "student") {
+    items = [
+      { name: "progress", icon: <IoIosSpeedometer size={18} /> },
+      { name: "questions", icon: <RiQuestionnaireFill size={18} /> },
+      { name: "revise", icon: <GiBrain size={18} /> },
+    ];
+  } else if (userType === "teacher") {
+    items = [
+      { name: "classes", icon: <GiTeacher size={18} /> },
+      { name: "upload", icon: <FaFileUpload size={18} /> },
+    ];
+  }
 
   const handleLogout = () => {
-    window.sessionStorage.removeItem('token');
-    window.sessionStorage.removeItem('userType');
-    router.push("/")
+    window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("userType");
+    router.push("/");
   };
   return (
-    <VStack bg="#F5FAFE" w="15em" minH="100%" p={4} justifyContent="space-between">
+    <VStack
+      bg="#F5FAFE"
+      w="15em"
+      minH="100%"
+      p={4}
+      justifyContent="space-between"
+    >
       <Stack color="#516284" spacing="1em" mt="0.5em">
         <HStack mb="1em" align="center" spacing="1em">
           <GiSpellBook />
@@ -49,7 +63,9 @@ function Sidebar() {
           </ChakraLink>
         ))}
       </Stack>
-      <Button colorScheme="purple" onClick={handleLogout}>Logout</Button>
+      <Button colorScheme="purple" onClick={handleLogout}>
+        Logout
+      </Button>
     </VStack>
   );
 }

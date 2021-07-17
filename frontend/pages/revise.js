@@ -19,7 +19,7 @@ import {
   Radio,
 } from "@chakra-ui/react";
 import Chart from "../components/Chart";
-import Layout from "../components/Layout";
+import StudentLayout from "../components/StudentLayout";
 import Card from "../components/Card";
 import { SiAtom } from "react-icons/si";
 import { BiShapeTriangle, BiDna } from "react-icons/bi";
@@ -51,7 +51,7 @@ export default function Revise() {
   }, []);
 
   return (
-    <Layout>
+    <StudentLayout>
       <VStack
         style={{ minWidth: "calc(100vw - 17em)" }}
         minH="100vh"
@@ -107,6 +107,6 @@ export default function Revise() {
           Next Question
         </Button>
       </VStack>
-    </Layout>
+    </StudentLayout>
   );
 }

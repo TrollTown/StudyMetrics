@@ -13,7 +13,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import Chart from "../components/Chart";
-import Layout from "../components/Layout";
+import StudentLayout from "../components/StudentLayout";
 import Card from "../components/Card";
 import React, { useState, useEffect } from "react";
 
@@ -60,7 +60,7 @@ export default function Progress() {
   //   }, []);
 
   return (
-    <Layout>
+    <StudentLayout>
       <VStack style={{ minWidth: "calc(100vw - 17em)" }}>
         <Breadcrumb alignSelf="start">
           <BreadcrumbItem>
@@ -69,15 +69,12 @@ export default function Progress() {
           <BreadcrumbItem>
             <BreadcrumbLink href="#">HSC Maths Extension 2</BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">s</BreadcrumbLink>
-          </BreadcrumbItem>
         </Breadcrumb>
         <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
           Progress
         </Heading>
-        <Chart />
+        <Chart message="Your Performance" />
       </VStack>
-    </Layout>
+    </StudentLayout>
   );
 }

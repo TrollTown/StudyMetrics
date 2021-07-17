@@ -14,7 +14,7 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import Chart from "../components/Chart";
-import Layout from "../components/Layout";
+import StudentLayout from "../components/StudentLayout";
 import Card from "../components/Card";
 import { SiAtom } from "react-icons/si";
 import { BiShapeTriangle, BiDna } from "react-icons/bi";
@@ -73,7 +73,7 @@ export default function Progress() {
   };
 
   return (
-    <Layout>
+    <StudentLayout>
       <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
         Questions
       </Heading>
@@ -84,6 +84,6 @@ export default function Progress() {
           </div>
         ))}
       </Grid>
-    </Layout>
+    </StudentLayout>
   );
 }

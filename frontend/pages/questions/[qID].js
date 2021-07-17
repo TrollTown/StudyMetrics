@@ -23,7 +23,7 @@ import {
   CheckCircleIcon,
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-import Layout from "../../components/Layout";
+import StudentLayout from "../../components/StudentLayout";
 
 export default function Question() {
   const router = useRouter();
@@ -146,7 +146,7 @@ export default function Question() {
     return <></>;
   } else {
     return (
-      <Layout>
+      <StudentLayout>
         <HStack minWidth="calc(100vw - 17em)" justifyContent="space-between">
           <Heading as="h3" color="#1E2D38" alignSelf="center">
             Questions
@@ -222,7 +222,7 @@ export default function Question() {
             {answerRevealed ? "Next Question" : "Submit Answer"}
           </Button>
         </VStack>
-      </Layout>
+      </StudentLayout>
     );
   }
 }
