@@ -109,7 +109,7 @@ def approve_answer():
     return json.dumps(resp)
 
 #get stats for student
-@flask_app.route("/get_stats_by_id", methods=['GET'])
+@flask_app.route("/get_stats_by_ID", methods=['GET'])
 def get_stats_by_ID():
     resp = radarGraphForStudent(request.args.get('studentID'), request.args.get('searchValue'), request.args.get('searchMode')) 
     return json.dumps(resp)
