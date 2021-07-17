@@ -129,7 +129,9 @@ def getNextQuestionID(studentID,submoduleID):
 	flask_app.logger.error(history)
 	lastTime = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
-		if sID == submoduleID:
+		qData = getQuestionByID(qID)
+		qDataSubId = qData[3]
+		if qDataSubId == submoduleID:
 			lastTime[qID] = int(fTime.strftime('%s'))
 	items = list(lastTime.items())
 	items.sort(key=lambda x:x[1])
