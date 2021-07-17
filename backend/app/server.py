@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
+from backend.app.clienttools import getUnapprovedQuestions
 from flask import jsonify, request
 from app import flask_app
 import json, os
-from app.dbtools import *
+from dbtools import *
+from clienttools import *
+from history import *
+from spaced_repetition import *
 from passlib.hash import pbkdf2_sha512
 import sys
 
@@ -36,21 +40,69 @@ def register():
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
         return jsonify({"result" : "success"}), 200
 
+
 @flask_app.route('/login', methods=['GET', 'POST'])
 def login():
     pass
 
 #get question
 @flask_app.route("/get_question_by_ID", methods=['GET'])
-def get_question():
+def get_question_by_ID():
+    payload = request.json
+    resp = getQuestionByID(payload['questionID'])
+    return json.dumps(resp)
+
+#get list of unapproved questions
+@flask_app.route("/get_unapproved_questions", methods=['GET'])
+def get_unapproved_questions():
+    # payload = request.get_json()
+    resp = getUnapprovedQuestions()
+    return json.dumps(resp)
+
+#get list of curated training questions
+@flask_app.route("/get_revision_questions", methods=['GET'])
+def get_revision_questions():
+    pass 
+
+#approve old answers?
+@flask_app.route("/approve_answer", methods=['GET'])
+def approve_answer():
     pass
 
-# Question submission
-@flask_app.route("/submit_question", methods=['POST'])
+#get stats for student
+@flask_app.route("/get_stats_by_ID", methods=['GET'])
+def get_stats_by_ID():
+    payload = request.get_json()
+    resp = radarGraphForStudent(payload['studentID'], payload['searchValue'], payload['searchMode']) 
+    return json.dumps(resp)
+
+#submit question
+@flask_app.route("/submit_question", methods=['GET'])
 def submit_question():
     payload = request.get_json()
     # need to update history 
+    # load_canvas grabs array from database
+    resp = submitQuestion(payload['subjectID'],payload['moduleID'],payload['submoduleID'],payload['questionText'],payload['questionType'],payload['answer'],payload['photo'],payload['difficulty'],payload['authorID'])
+
+    # dump_data()
+    return json.dumps(resp)
+
+# Question submission
+@flask_app.route("/submit_answer", methods=['POST'])
+def submit_answer():
+    payload = request.get_json()
+    # need to update history 
     resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer']) # load_canvas grabs array from database
+
+    # dump_data()
+    return json.dumps(resp)
+
+# Get the next question to do
+@flask_app.route("/get_next_question", methods=['GET'])
+def get_next_question():
+    payload = request.get_json()
+    # need to update history 
+    resp = getNextQuestion(payload['studentID'], payload['submoduleID']) # load_canvas grabs array from database
 
     # dump_data()
     return json.dumps(resp)

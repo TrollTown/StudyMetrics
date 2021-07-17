@@ -1,3 +1,4 @@
+from backend.app.dbtools import getSubmoduleIDsByModuleID
 from dbtools import *
 from datetime import datetime
 import time
@@ -39,7 +40,7 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodul
 		retVal[key] = elo
 	return retVal
 
-def getUnapproved():
+def getUnapprovedQuestions():
 	history = getAllHistory()
 	allQuestions = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
@@ -58,6 +59,23 @@ def getUnapproved():
 		})
 	return retVal
 	
-	
+def getSubmodulesByModuleID(moduleID):
+	submoduleIDs = getSubmoduleIDsByModuleID(moduleID)
+	retVal = []
+	for sID in submoduleIDs:
+		submodule = getSubmoduleByID(sID)
+		retVal.append({
+			'submoduleID': submodule[1],
+			'submoduleName': submodule[2]
+		})
+	return retVal
 
-
+def getNextQuestionID(studentID,submoduleID):
+	history = getHistoryByStudentID(studentID)[::-1]
+	lastTime = {}
+	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
+		if sID == submoduleID:
+			lastTime[qID] = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+	items = list(lastTime.items())
+	items.sort(key=lambda x:x[1])
+	return items[0][0]
