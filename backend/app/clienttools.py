@@ -79,3 +79,13 @@ def getNextQuestionID(studentID,submoduleID):
 	items = list(lastTime.items())
 	items.sort(key=lambda x:x[1])
 	return items[0][0]
+
+def getLevelProgress(studentID,level,levelID):
+	# get total number of questions
+	if level=='subject':
+		n = len(getQuestionsBySubjectID(levelID))
+	elif level=='module':
+		n = len(getQuestionsBySubjectID(levelID))
+
+	# get number of those questions that were attempted, and how many were answered right
+	history = getHistoryByStudentID(studentID)[::-1]
