@@ -2,7 +2,6 @@
 from flask import jsonify, request
 from app import flask_app
 import json, os
-from app.whiteboard import save_canvas, load_canvas
 from app.dbtools import *
 from passlib.hash import pbkdf2_sha512
 import sys
@@ -40,15 +39,10 @@ def register():
 def login():
     pass
 
-
-#Nathan: code for loading a saved whiteboard
-# what do i put for the url??
-@flask_app.route("/load_whiteboard", methods=['GET', 'POST'])
-def load_canvas_from_database():
-    payload = request.get_json()
-    resp = load_canvas(payload['canvas_id']) # load_canvas grabs array from database
-    # dump_data()
-    return json.dumps(resp)
+#get question
+@flask_app.route("/get_question_by_ID", methods=['GET'])
+def get_question():
+    pass
 
 # Question submission
 @flask_app.route("/submit_question", methods=['POST'])
@@ -56,7 +50,6 @@ def submit_question():
     payload = request.get_json()
     # need to update history 
     resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer']) # load_canvas grabs array from database
-    
 
     # dump_data()
     return json.dumps(resp)
