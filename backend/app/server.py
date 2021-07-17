@@ -150,9 +150,7 @@ def submit_answer():
 @flask_app.route("/get_next_question", methods=['GET'])
 def get_next_question():
     # need to update history 
-    resp = getNextQuestion(request.args.get('studentID'), request.args.get('submoduleID')) # load_canvas grabs array from database
-
-    # dump_data()
+    resp = getNextQuestionID(request.args.get('studentID'), request.args.get('submoduleID')) # load_canvas grabs array from database
     return json.dumps(resp)
 
 # Get the next question to do
