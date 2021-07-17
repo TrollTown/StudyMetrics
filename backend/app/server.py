@@ -39,7 +39,21 @@ def register():
 
 @flask_app.route('/login', methods=['POST'])
 def login():
-    pass
+    content = request.json
+    flask_app.logger.error(str(content))
+    email = content['email']
+    password = content['password']
+    users = getUserByEmail(email)
+    flask_app.logger.error(users)
+    if len(users) != 1:
+        return jsonify({"result" : "failed", "reason" : "Login failed"}),400
+    stored_hash = users[0][2]
+    if pbkdf2_sha512.verify(password, stored_hash):
+        return jsonify({"result : success"}), 200
+    else:
+        return jsonify({"result" : "failed", "reason" : "Login failed"}),400
+    
+
 
 #get question
 @flask_app.route("/get_question_by_ID", methods=['GET'])
