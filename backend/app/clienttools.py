@@ -2,6 +2,7 @@ from app.dbtools import *
 from app.history import *
 from datetime import datetime
 import time
+from app import flask_app
 
 def getQuestionDataByID(questionID):
 	qData = getQuestionByID(questionID)
@@ -131,6 +132,7 @@ def getNextQuestionID(studentID,submoduleID):
 			lastTime[qID] = int(fTime.strftime('%s'))
 	items = list(lastTime.items())
 	items.sort(key=lambda x:x[1])
+	flask_app.logger.error(items)
 	return {
 		'questionID': items[0][0]
 	}
