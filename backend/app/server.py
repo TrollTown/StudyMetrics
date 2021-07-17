@@ -111,8 +111,7 @@ def approve_answer():
 #get stats for student
 @flask_app.route("/get_stats_by_ID", methods=['GET'])
 def get_stats_by_ID():
-    payload = request.get_json()
-    resp = radarGraphForStudent(payload['studentID'], payload['searchValue'], payload['searchMode']) 
+    resp = radarGraphForStudent(request.args.get('studentID'), request.args.get('searchValue'), request.args.get('searchMode')) 
     return json.dumps(resp)
 
 #get stats for student
@@ -152,9 +151,8 @@ def submit_answer():
 # Get the next question to do
 @flask_app.route("/get_next_question", methods=['GET'])
 def get_next_question():
-    payload = request.get_json()
     # need to update history 
-    resp = getNextQuestion(payload['studentID'], payload['submoduleID']) # load_canvas grabs array from database
+    resp = getNextQuestion(request.args.get('studentID'), request.args.get('submoduleID')) # load_canvas grabs array from database
 
     # dump_data()
     return json.dumps(resp)$
