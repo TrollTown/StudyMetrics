@@ -11,14 +11,19 @@
 """
 import time
 import psycopg2
+import datetime
+import os
+from app.dbtools import *
+
+# def checkAnswer(questionID,answer)
 
 def updateHistory(questionID, studentID, answer, workingOutPhoto):
-    finish_time = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+    # finish_time = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
 
     studentHistory = getHistoryByStudentID(studentID)
 
     #Need to find most recent history 
-    newest_question = NULL
+    newest_question = None
     successful_attempts = 0
     counter = 0
     for question in studentHistory:
@@ -39,7 +44,7 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
     # default to false
     #Figure out result
     result = False 
-    result = checkAnswer(answer)    #TODO: need to make checkAnswer Function
+    # result = checkAnswer(answer)    #TODO: need to make checkAnswer Function
 
     #Figure out MasteredQ
     masteredQ = False
@@ -47,7 +52,7 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
         masteredQ = True
 
     #Figure out next attempt for revision
-    nextAttempt = NULL
+    nextAttempt = None
     if (attempt == 1):
         # next attempt should be 1 day from last attempt date
         nextAttempt = datetime.now() + datetime.timedelta(days=1)
@@ -72,10 +77,10 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
         # Check answer against database
         approved = True
         if (answer == questionSoln):
-            result == True
+            result = True
 
     # Adding new entry: Inserting all values into a new row in the history table
-    addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved)
+    addHistory2Database(questionID, studentID, questionInfo[2], attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved)
 
     return result
 
