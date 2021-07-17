@@ -224,10 +224,13 @@ def getClassList(teacherID):
 
 # def getSubjectListFromC
 
-# def getClassRadar(classID):
-# 	c = getClassbyClassID(classID)
-# 	sName = c[]
-# 	ids = getStudentIDsByClassID(classID)
+def getClassRadar(classID):
+	c = getClassbyClassID(classID)
+	sName = c[3]
+	ids = getStudentIDsByClassID(classID)
+	totals = {}
+	for id in ids:
+		k = radarGraphForStudent(id, sName, 'subject')
 
 
 
