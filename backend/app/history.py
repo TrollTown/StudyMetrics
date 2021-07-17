@@ -17,7 +17,7 @@ from app.dbtools import *
 
 # def checkAnswer(questionID,answer)
 
-def updateHistory(questionID, studentID, answer, workingOutPhoto):
+def updateHistory(questionID, studentID, answer):
     # finish_time = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
 
     studentHistory = getHistoryByStudentID(studentID)
@@ -80,7 +80,7 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
             result = True
 
     # Adding new entry: Inserting all values into a new row in the history table
-    addHistory2Database(questionID, studentID, questionInfo[2], attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved)
+    addHistory2Database(questionID, studentID, questionInfo[2], attempt, masteredQ, nextAttempt, answer, result, approved)
 
     return result
 
