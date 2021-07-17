@@ -3,6 +3,7 @@ import { Button, Heading, HStack, Input, InputGroup, InputLeftElement, Link, Rad
 import { FaUser, FaKey } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { GiConfirmed } from "react-icons/gi";
+import router from "next/router";
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -13,6 +14,7 @@ export default function Register() {
   const [invalidPass, setInvalidPass] = useState(false);
   const [invalidName, setInvalidName] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
+  const [existingEmail, setExistingEmail] = useState(false);
   const [pwTooltipOpen, setPwTooltipOpen] = useState(false);
   const [nameTooltipOpen, setNameTooltipOpen] = useState(false);
   const [emailTooltipOpen, setEmailTooltipOpen] = useState(false);
@@ -27,6 +29,7 @@ export default function Register() {
       case "email":
         setInvalidEmail(false);
         setEmailTooltipOpen(false);
+        setExistingEmail(false);
         setEmail(e.target.value);
         break;
       case "pass":
@@ -81,7 +84,21 @@ export default function Register() {
 
     fetch('https://api.production.hackathon.outki.org/register', options)
       .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+          console.log(data)
+          if (data.result === "failed") {
+            setInvalidEmail(true);
+            setExistingEmail(true);
+          } else {
+            window.sessionStorage.setItem('token', data.token);
+            window.sessionStorage.setItem('userType', userType);
+            if (userType === "student") {
+              router.push('/progress')
+            } else {
+              router.push('/classes')
+            }
+          }
+        })
   }
 
   return (
@@ -96,7 +113,7 @@ export default function Register() {
         </Tooltip>
       </Center>
       <Center>
-        <Tooltip hasArrow label="Please enter an email" bg="red" isOpen={emailTooltipOpen} placement="top">
+        <Tooltip hasArrow label={existingEmail ? "That email already exists" : "Please enter an email"} bg="red" isOpen={emailTooltipOpen || existingEmail} placement="top">
           <InputGroup>
             <InputLeftElement children={<Icon as={IoIosMail} color="gray.400" />} />
             <Input name="email" placeholder="Email" w="400px" m="4" onChange={handleChange} isInvalid={invalidEmail} m="0" />
