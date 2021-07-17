@@ -4,7 +4,7 @@ from app import flask_app
 import json, os
 from app.whiteboard import save_canvas, load_canvas
 from app.dbtools import *
-from passlib.hash import pbkdf2_sha256
+from passlib.hash import pbkdf2_sha512
 
 @flask_app.route('/', methods=['GET'])
 def root():
@@ -22,7 +22,7 @@ def register():
     if len(users) != 0:
         return jsonify({"result" : "failed", "reason" : "Email is already registered."}, 400)
     else:
-        pw_hash = pbkdf2_sha256.hash(password)
+        pw_hash = pbkdf2_sha512.hash(password)
         if userType == "student":
             isTeacher = False
         else:
