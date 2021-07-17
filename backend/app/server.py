@@ -39,6 +39,11 @@ def register():
 def login():
     pass
 
+#get question
+@flask_app.route("/get_question_by_ID", methods=['GET'])
+def get_question():
+    pass
+
 # Question submission
 @flask_app.route("/submit_question", methods=['POST'])
 def submit_question():
