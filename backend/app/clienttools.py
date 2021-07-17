@@ -1,8 +1,52 @@
-from dbtools import *
+from app.dbtools import *
+from app.history import *
 from datetime import datetime
 import time
 
-def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodule
+def getQuestionDataByID(questionID):
+	qData = getQuestionByID(questionID)
+	return {
+		'questionID': qData[0],
+		'subjectID': qData[1],
+		'moduleID' : qData[2]   ,
+		'submoduleID' : qData[3],
+		'questionText' : qData[4]  ,
+		'questionType' : qData[5] ,
+		'answer'  : qData[6] ,
+		'photo'   : qData[7]  ,
+		'difficulty' : qData[8],
+		'authorID'  : qData[9],
+		'starred'  : qData[10]
+	}
+
+def getSubjectDataByID(subjectID):
+	data = getSubjectByID(subjectID)
+	return {
+		'subjectID': data[0],
+		'subjectName':	data[1]
+	}
+
+
+def getModuleDataByID(moduleID):
+	data = getModuleByID(moduleID)
+	return {
+		'moduleID': data[0],
+		'subjectID': data[1],
+		'moduleName': data[2]
+	}
+
+
+def getSubmoduleDataByID(submoduleID):
+	data = getSubmoduleByID(submoduleID)
+	return {
+		'submoduleID': data[0],
+		'moduleID': data[1],
+		'submoduleName': data[2]
+	}
+
+
+
+def radarGraphForStudent(studentID,searchVal,searchMode):# or subject or module
 	history = getHistoryByStudentID(studentID)
 	groups = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
@@ -12,13 +56,16 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodul
 		qDiff = qData[8]
 		key = ''
 		if searchMode == 'subject' and qData[1]==searchVal:
-			key = getSubjectNameByID(qData[2]) #if searhcing by subject, split on module
+			key = getModuleNameByID(qData[2]) #if searhcing by subject, split on module
 		elif searchMode == 'module'  and qData[2]==searchVal:
-			key = getSubjectNameByID(qData[3]) #if searhcing by module, split on submodule
+			key = getSubmoduleNameByID(qData[3]) #if searhcing by module, split on submodule
+		else: 
+			continue
+
 		if key not in groups:
 			groups[key] = []
 
-		fTime = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+		fTime = int(fTime.strftime('%s'))
 		
 		groups[key].append((res,qDiff,fTime))
 
@@ -39,8 +86,15 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodul
 		retVal[key] = elo
 	return retVal
 
-def getUnapproved():
-	history = getAllHistory()
+def getUnapprovedQuestions(teacherID):
+	history = []
+	cIDs = getClassIDsByTeacherID(teacherID)
+	sIDs = []
+	for id in cIDs:
+		sIDs += getStudentIDsByClassID(id)
+	sIDs = list(set(sIDs))
+	for id in sIDs:
+		history += getHistoryByStudentID(id)
 	allQuestions = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
 		if (qID,sID,fTime) in allQuestions and approved:
@@ -58,6 +112,145 @@ def getUnapproved():
 		})
 	return retVal
 	
-	
+def getSubmodulesByModuleID(moduleID):
+	submoduleIDs = getSubmoduleIDsByModuleID(moduleID)
+	retVal = []
+	for sID in submoduleIDs:
+		submodule = getSubmoduleByID(sID)
+		retVal.append({
+			'submoduleID': submodule[1],
+			'submoduleName': submodule[2]
+		})
+	return retVal
+
+def getNextQuestionID(studentID,submoduleID):
+	history = getHistoryByStudentID(studentID)[::-1]
+	lastTime = {}
+	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
+		if sID == submoduleID:
+			lastTime[qID] = int(fTime.strftime('%s'))
+	items = list(lastTime.items())
+	items.sort(key=lambda x:x[1])
+	return {
+		'questionID': items[0][0]
+	}
+
+def getLevelProgress(studentID,level,levelID):
+	# get total number of questions
+	n = 0
+	if level=='subject':
+		n = len(getQuestionsBySubjectID(levelID))
+	elif level=='module':
+		n = len(getQuestionsByModuleID(levelID))
+	elif level=='submodule':
+		n = len(getQuestionsBySubmoduleID(levelID))
+
+	if n == 0:
+		return {
+			'progress': 0
+		}
+
+	# get number of those questions that were attempted, and how many were answered right
+	history = getHistoryByStudentID(studentID)[::-1]
+	lastTime={}
+	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
+		qData = getQuestionByID(qID)
+		if level=='subject' and levelID==qData[1]:
+			if res:
+				lastTime[qID] = 1
+			elif qID in lastTime:
+				del lastTime[qID]
+	m = len(lastTime.keys())
+	return {
+		'progress': round(100*m/n)
+	}
+
+def getEntireLevelProgress(studentID,levelType,parentLevelID):
+	ids = []
+	if levelType=='subject':
+		ids = getAllSubjectIDs()
+	elif levelType=='module':
+		ids = getModuleIDsBySubjectID(parentLevelID)
+	elif levelType=='submodule':
+		ids = getSubmoduleIDsByModuleID(parentLevelID)
+
+	retVal = {}
+	for id in ids:
+		name = ''
+		if levelType=='subject':
+			name = getSubjectNameByID(id)
+		elif levelType=='module':
+			name = getModuleNameByID(id)
+		elif levelType=='submodule':
+			name = getSubmoduleNameByID(id)
+		
+		retVal.append({
+			'id': id,
+			'name': name,
+			'progress': getLevelProgress(studentID,levelType,id)
+		})
+
+	return retVal
+
+def approveAnswer(questionID,studentID,finish_time,result):
+	entry = getHistoryEntry(questionID,studentID,finish_time)
+	# new entry
+	addHistory2Database(questionID, studentID, finish_time, entry[3], entry[4], entry[5], entry[6], result, True)
+	return {
+		'result':'success'
+	}
+
+# overall performance of class
+# 
+def getClassMembers(classID):
+	ids = getStudentIDsByClassID(classID)
+	retVal = []
+	for id in ids:
+		s = getUserByID(id)
+		retVal.append({
+			'id': id,
+			'name': s[2],
+		})
+	return retVal
+
+
+def getClassList(teacherID):
+	ids = getClassIDsByTeacherID(teacherID)
+	retVal = []
+	for id in ids:
+		c = getClassNamebyClassID(id)
+		retVal.append({
+			'id': id,
+			'name': c[2],
+		})
+	return retVal
+
+# def getSubjectListFromC
+
+def getClassRadar(classID):
+	c = getClassbyClassID(classID)
+	sName = c[3]
+	ids = getStudentIDsByClassID(classID)
+	totals = {}
+	n = len(ids)
+	for id in ids:
+		data = radarGraphForStudent(id, sName, 'subject')
+		for k,v in data.items():
+			totals[k] = totals.get(k,0) + v
+	retVal = {}
+	for k,v in totals.items():
+		retVal[k] = round(v/n)
+	return retVal
+
+def getClassListByStudentID(studentID):
+	cs = getClassIDsbyStudentID(studentID)
+	retVal = []
+	for c in cs:
+		k = getClassbyClassID(c)
+		retVal.append({
+			'classID': c,
+			'className': c[2]
+		})
+	return retVal
 
 

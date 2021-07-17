@@ -1,9 +1,11 @@
+sudo systemctl restart postgresql
 cd /opt/production/hackathon2021/backend
 export $(cat ./.env | grep -v ^# | xargs) >/dev/null
 psql -U hackathon_db_user -d hackathon_db -f setup.sql
 . venv/bin/activate
 pip install -r requirements.txt
 deactivate
+cat /dev/null > error.log
 sudo systemctl restart hackathon_backend_production
 sudo systemctl status hackathon_backend_production
 cd /opt/production/hackathon2021/frontend
