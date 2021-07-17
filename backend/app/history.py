@@ -77,6 +77,7 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
     # Adding new entry: Inserting all values into a new row in the history table
     addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved)
 
+    return result
 
 def addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer , result, approved):
     # TODO: Duno what to do in line 83

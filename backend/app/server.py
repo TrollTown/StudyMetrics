@@ -53,7 +53,7 @@ def login():
     if pbkdf2_sha512.verify(password, stored_hash):
         return jsonify({"result" : "success", "token" : users[0][0]}), 200
     else:
-        return jsonify({"result" : "failed", "reason" : "Login failed"}),400
+        return jsonify({"result" : "failed", "reason" : "Login failed"}), 400
 
 #get question
 @flask_app.route("/get_question_by_ID", methods=['GET'])
@@ -61,6 +61,12 @@ def get_question_by_ID():
     questionID = request.args.get('questionID')
     flask_app.logger.error(questionID)
     resp = getQuestionDataByID(questionID)
+    flask_app.logger.error(resp)
+    questionText = resp['questionText']
+    questionTextSplit = questionText.split(' ')
+    answer = questionTextSplit[-1].split('|')
+    resp['questionText'] = ' '.join(questionTextSplit[0:-1])[:-1]
+    resp['options'] = answer[1:-1]
     return json.dumps(resp)
 
 
@@ -84,7 +90,7 @@ def get_submodule_by_ID():
 
 #get list of unapproved questions
 @flask_app.route("/get_unapproved_questions", methods=['GET'])
-def get_unapproved_questions(teacherID):
+def get_unapproved_questions():
     teacherID = request.args.get('teacherID')
     resp = getUnapprovedQuestions(teacherID)
     return json.dumps(resp)
@@ -92,8 +98,7 @@ def get_unapproved_questions(teacherID):
 #get list of curated training questions
 @flask_app.route("/get_revision_questions", methods=['GET'])
 def get_revision_questions():
-    payload = request.get_json()
-    resp = selectRevisionQ(payload['studentID'])
+    resp = selectRevisionQ(request.args.get('studentID'))
     return json.dumps(resp)
 
 #approve old answers
@@ -120,8 +125,7 @@ def get_class_members():
 #get stats for student
 @flask_app.route("/get_class_list", methods=['GET'])
 def get_class_list():
-    payload = request.get_json()
-    resp = getClassList(payload['teacherID']) 
+    resp = getClassList(request.args.get('teacherID'))
     return json.dumps(resp)
 
 #submit question
@@ -161,6 +165,25 @@ def get_entire_level_progress():
     payload = request.get_json()
     # need to update history 
     resp = getEntireLevelProgress(payload['studentID'], payload['levelType'],payload['parentLevelID']) # load_canvas grabs array from database
+
+    # dump_data()
+    return json.dumps(resp)
+
+
+@flask_app.route("/get_class_radar", methods=['GET'])
+def get_class_radar():
+    payload = request.get_json()
+    # need to update history 
+    resp = getClassRadar(payload['classID']) # load_canvas grabs array from database
+
+    # dump_data()
+    return json.dumps(resp)
+
+@flask_app.route("/get_class_list_by_student_ID", methods=['GET'])
+def get_class_list_by_student_ID():
+    payload = request.get_json()
+    # need to update history 
+    resp = getClassListByStudentID(payload['studentID']) # load_canvas grabs array from database
 
     # dump_data()
     return json.dumps(resp)
