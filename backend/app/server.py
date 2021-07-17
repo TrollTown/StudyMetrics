@@ -66,7 +66,7 @@ def get_question_by_ID():
 #get list of unapproved questions
 @flask_app.route("/get_unapproved_questions", methods=['GET'])
 def get_unapproved_questions(teacherID):
-    # payload = request.get_json()
+    teacherID = request.args.get('teacherID')
     resp = getUnapprovedQuestions(teacherID)
     return json.dumps(resp)
 
