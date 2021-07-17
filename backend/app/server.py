@@ -40,14 +40,6 @@ def register():
 def login():
     pass
 
-#Nathan: code for saving students' whiteboard
-# what do i put for the url??
-@flask_app.route("/save_whiteboard", methods=['GET', 'POST'])
-def submit_canvas_from_database():
-    payload = request.get_json()
-    resp = save_canvas(payload['canvas_id'], payload['canvas_coordinates']) # save_canvas function saves to database
-    # dump_data()
-    return json.dumps(resp)
 
 #Nathan: code for loading a saved whiteboard
 # what do i put for the url??
