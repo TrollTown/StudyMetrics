@@ -134,10 +134,10 @@ def upload_question():
     payload = request.get_json()
     # need to update history 
     # load_canvas grabs array from database
-    resp = submitQuestion(payload['subjectID'],payload['moduleID'],payload['submoduleID'],payload['questionText'],payload['questionType'],payload['answer'],payload['photo'],payload['difficulty'],payload['authorID'])
+    uploadQuestion(payload['subjectID'],payload['moduleID'],payload['submoduleID'],payload['questionText'],payload['questionType'],payload['answer'],payload['photo'],payload['difficulty'],payload['authorID'])
 
     # dump_data()
-    return json.dumps(resp)
+    return json.dumps({'result':'success'})
 
 # Question submission
 @flask_app.route("/submit_answer", methods=['POST'])
@@ -157,7 +157,7 @@ def get_next_question():
     resp = getNextQuestion(payload['studentID'], payload['submoduleID']) # load_canvas grabs array from database
 
     # dump_data()
-    return json.dumps(resp)
+    return json.dumps(resp)$
 
 # Get the next question to do
 @flask_app.route("/get_entire_level_progress", methods=['GET'])
