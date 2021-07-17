@@ -10,7 +10,7 @@ def getUserByEmail(email):
 		FROM users
 		WHERE email=%s
 	''',[email])
-	return cur.fetchall()[0]
+	return cur.fetchall()
 
 def insertUserIntoDatabase(name, email, pwdHash, isTeacher):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
