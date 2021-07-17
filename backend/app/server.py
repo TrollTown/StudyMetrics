@@ -55,7 +55,7 @@ def login():
         return jsonify({"result" : "failed", "reason" : "Login failed"}),400
     stored_hash = users[0][3]
     if pbkdf2_sha512.verify(password, stored_hash):
-        return jsonify({"result" : "success", "token" : users[0][0]}), 200
+        return jsonify({"result" : "success", "token" : users[0][0], "type" : users[0][4]}), 200
     else:
         return jsonify({"result" : "failed", "reason" : "Login failed"}), 400
 
