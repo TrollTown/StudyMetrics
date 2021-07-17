@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Button } from "@chakra-ui/react";
+import { Button, Flex, useColorMode } from "@chakra-ui/react";
 import Chart from "../components/Chart";
 import Layout from "../components/Layout";
 
