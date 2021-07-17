@@ -11,7 +11,7 @@ def root():
     flask_app.logger.error("ROOT LOG")
     return jsonify({'response' : 'Hello'}), 200
 
-@flask_app.route('/register', methods=['GET', 'POST'])
+@flask_app.route('/register', methods=['POST'])
 def register():
     flask_app.logger.error("BEFORE HELLLLOOOOOO")
     try:
@@ -47,7 +47,7 @@ def internal_error(exception):
     flask_app.logger.error(exception)
     return render_template('500.html'), 500
 
-@flask_app.route('/login', methods=['GET', 'POST'])
+@flask_app.route('/login', methods=['POST'])
 def login():
     pass
 
