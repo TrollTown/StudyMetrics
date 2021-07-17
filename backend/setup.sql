@@ -80,7 +80,12 @@ values
 
 insert into Subjects
 values
-    (DEFAULT,1,'Yr12 Maths Extension 2');
+    (DEFAULT,'HSC Maths Extension 2'),
+    (DEFAULT,'HSC Maths Extension 1'),
+    (DEFAULT,'HSC Chemistry'),
+    (DEFAULT,'HSC Physics'),
+    (DEFAULT,'HSC Biology'),
+    (DEFAULT,'HSC English');
 
 insert into Modules
 values
