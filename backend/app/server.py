@@ -1,27 +1,60 @@
 #!/usr/bin/env python3
 from flask import jsonify, request
 from app import flask_app
-import json
-from app.whiteboard import save_canvas, load_canvas
+import json, os
+from app.dbtools import *
+from passlib.hash import pbkdf2_sha512
+import sys
 
 @flask_app.route('/', methods=['GET'])
 def root():
+    flask_app.logger.error("ROOT LOG")
     return jsonify({'response' : 'Hello'}), 200
 
-#Nathan: code for saving students' whiteboard
-# what do i put for the url??
-@flask_app.route("/save_whiteboard", methods=['POST'])
-def get_canvas_from_web():
-    payload = request.get_json()
-    resp = save_canvas(payload['canvas_id'], payload['canvas_coordinates']) # save_canvas function saves to database
-    # dump_data()
-    return json.dumps(resp)
+@flask_app.route('/register', methods=['GET', 'POST'])
+def register():
+    flask_app.logger.error("BEFORE HELLLLOOOOOO")
+    try:
+        content = request.json
+    except Exception as e:
+        flask_app.logger.error("EXCEPTION")
+    flask_app.logger.error("HELLLLOOOOOO")
+    name = content['name']
+    flask_app.logger.error(name)
+    email = content['email']
+    flask_app.logger.error(email)
+    password = content['password']
+    flask_app.logger.error(password)
+    userType = content['userType']
+    flask_app.logger.error(userType)
+    users = getUserByEmail(email)
+    isTeacher = None
+    if len(users) != 0:
+        return jsonify({"result" : "failed", "reason" : "Email is already registered."}),400
+    else:
+        pw_hash = pbkdf2_sha512.hash(password)
+        if userType == "student":
+            isTeacher = False
+        else:
+            isTeacher = True
+        insertUserIntoDatabase(name, email, pw_hash, isTeacher)
+        return jsonify({"result" : "success"}), 200
 
-#Nathan: code for loading a saved whiteboard
-# what do i put for the url??
-@flask_app.route("/load_whiteboard", methods=['POST'])
-def load_canvas_from_database():
+@flask_app.route('/login', methods=['GET', 'POST'])
+def login():
+    pass
+
+#get question
+@flask_app.route("/get_question_by_ID", methods=['GET'])
+def get_question():
+    pass
+
+# Question submission
+@flask_app.route("/submit_question", methods=['POST'])
+def submit_question():
     payload = request.get_json()
-    resp = load_canvas(payload['canvas_id']) # load_canvas grabs array from database
+    # need to update history 
+    resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer']) # load_canvas grabs array from database
+
     # dump_data()
     return json.dumps(resp)
