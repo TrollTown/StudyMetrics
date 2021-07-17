@@ -1,0 +1,15 @@
+[Unit]
+Description=NodeJS server, NextJS public frontend
+After=network.target
+
+[Service]
+Type=simple
+User=jenkins
+Group=www-data
+Restart=on-failure
+RestartSec=10
+WorkingDirectory=/opt/production/hackathon2021/frontend
+ExecStart=/usr/bin/npm run start
+
+[Install]
+WantedBy=multi-user.target
