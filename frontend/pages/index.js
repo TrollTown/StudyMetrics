@@ -1,11 +1,18 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Button } from "@chakra-ui/react";
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem('token') === null) {
+      router.push('/login');
+    } else {
+      router.push('/progress')
+    }
+  });
+
   return (
-    <div>
-      <Button colorScheme="blue">Chakra Button</Button>
-    </div>
+    <div></div>
   );
 }
