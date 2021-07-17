@@ -19,6 +19,7 @@ function Sidebar() {
               textDecoration: "none",
               color: "#283753",
             }}
+            key={`/${item}`}
           >
             <Link href={`/${item}`}>
               <a>{item}</a>
