@@ -92,9 +92,23 @@ def get_stats_by_ID():
     resp = radarGraphForStudent(payload['studentID'], payload['searchValue'], payload['searchMode']) 
     return json.dumps(resp)
 
+#get stats for student
+@flask_app.route("/get_class_members", methods=['GET'])
+def get_class_members():
+    payload = request.get_json()
+    resp = getClassMembers(payload['classID']) 
+    return json.dumps(resp)
+
+#get stats for student
+@flask_app.route("/get_class_list", methods=['GET'])
+def get_class_list():
+    payload = request.get_json()
+    resp = getClassList(payload['teacherID']) 
+    return json.dumps(resp)
+
 #submit question
-@flask_app.route("/submit_question", methods=['GET'])
-def submit_question():
+@flask_app.route("/upload_question", methods=['POST'])
+def upload_question():
     payload = request.get_json()
     # need to update history 
     # load_canvas grabs array from database

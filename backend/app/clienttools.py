@@ -3,6 +3,22 @@ from app.history import *
 from datetime import datetime
 import time
 
+def getQuestionDataByID(questionID):
+	qData = getQuestionByID(questionID)
+	return {
+		'questionID': qData[0],
+		'subjectID': qData[1],
+		'moduleID' : qData[2]   ,
+		'submoduleID' : qData[3],
+		'questionText' : qData[4]  ,
+		'questionType' : qData[5] ,
+		'answer'  : qData[5] ,
+		'photo'   : qData[6]  ,
+		'difficulty' : qData[7],
+		'authorID'  : qData[8],
+		'starred'  : qData[9]
+	}
+
 def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodule
 	history = getHistoryByStudentID(studentID)
 	groups = {}
@@ -146,3 +162,28 @@ def approveAnswer(questionID,studentID,finish_time,result):
 	return {
 		'result':'success'
 	}
+
+# overall performance of class
+# 
+def getClassMembers(classID):
+	ids = getStudentIDsByClassID(classID)
+	retVal = []
+	for id in ids:
+		s = getUserByID(id)
+		retVal.append({
+			'id': id,
+			'name': s[2],
+		})
+	return retVal
+
+
+def getClassList(teacherID):
+	ids = getClassIDsByTeacherID(teacherID)
+	retVal = []
+	for id in ids:
+		c = getClassNamebyClassID(id)
+		retVal.append({
+			'id': id,
+			'name': c[2],
+		})
+	return retVal
