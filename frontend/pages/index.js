@@ -5,5 +5,9 @@ import Chart from "../components/Chart";
 import Layout from "../components/Layout";
 
 export default function Home() {
-  return <Layout></Layout>;
+  return (
+    <Layout>
+      <Chart />
+    </Layout>
+  );
 }
