@@ -35,7 +35,9 @@ def register():
         else:
             isTeacher = True
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
-        return jsonify({"result" : "success"}), 200
+        userInfo = getUserByEmail(email)
+        userid = userInfo[0][0]
+        return jsonify({"result" : "success", "token" : userid}), 200
 
 @flask_app.route('/login', methods=['POST'])
 def login():
@@ -47,9 +49,9 @@ def login():
     flask_app.logger.error(users)
     if len(users) != 1:
         return jsonify({"result" : "failed", "reason" : "Login failed"}),400
-    stored_hash = users[0][2]
+    stored_hash = users[0][3]
     if pbkdf2_sha512.verify(password, stored_hash):
-        return jsonify({"result : success"}), 200
+        return jsonify({"result" : "success", "token" : users[0][0]}), 200
     else:
         return jsonify({"result" : "failed", "reason" : "Login failed"}),400
     
