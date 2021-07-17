@@ -15,8 +15,8 @@ def insertUserIntoDatabase(name, email, pwdHash, isTeacher):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
 	cur = conn.cursor()
 	cur.execute("""
-		INSERT INTO Users (email,name,passwd,isTeacher)
-		VALUES (%s, %s, %s, %s)
+		INSERT INTO Users
+		VALUES (DEFAULT,%s, %s, %s, %s)
 	""",[email, name, pwdHash, isTeacher])
 
 def getSubjectIDByName(subjectName):
