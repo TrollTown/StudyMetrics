@@ -1,4 +1,4 @@
-import { Button, Heading, HStack, Input, VStack } from "@chakra-ui/react";
+import { Button, Heading, HStack, Input, Link, VStack } from "@chakra-ui/react";
 
 export default function Register() {
   return (
@@ -9,7 +9,7 @@ export default function Register() {
       <Input type="password" placeholder="Password" w="400px" m="4" />
       <Input type="password" placeholder="Confirm Password" w="400px" m="4" />
       <HStack>
-        <Button colorScheme="blue">Login</Button>
+        <Button colorScheme="blue"><Link href="/login">Login</Link></Button>
         <Button colorScheme="teal">Register</Button>
       </HStack>
     </VStack>
