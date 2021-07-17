@@ -104,6 +104,8 @@ values
 insert into Classes
 values
     (1,4),
+    (2,4),
+    (3,4),
     (1,5),
     (1,6);
 

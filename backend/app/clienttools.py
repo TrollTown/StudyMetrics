@@ -239,5 +239,15 @@ def getClassRadar(classID):
 		retVal[k] = round(v/n)
 	return retVal
 
+def getClassListByStudentID(studentID):
+	cs = getClassIDsbyStudentID(studentID)
+	retVal = []
+	for c in cs:
+		k = getClassbyClassID(c)
+		retVal.append({
+			'classID': c,
+			'className': c[2]
+		})
+	return retVal
 
 

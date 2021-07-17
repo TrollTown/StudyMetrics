@@ -178,3 +178,12 @@ def get_class_radar():
 
     # dump_data()
     return json.dumps(resp)
+
+@flask_app.route("/get_class_list_by_student_ID", methods=['GET'])
+def get_class_list_by_student_ID():
+    payload = request.get_json()
+    # need to update history 
+    resp = getClassListByStudentID(payload['studentID']) # load_canvas grabs array from database
+
+    # dump_data()
+    return json.dumps(resp)

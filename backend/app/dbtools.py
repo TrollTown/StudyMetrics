@@ -270,3 +270,12 @@ def getClassbyClassID(classID):
 		where classID=%s
 	''',[classID])
 	return cur.fetchall()[0]
+
+def getClassIDsbyStudentID(studentID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select classID from Classes
+		where studentID=%s
+	''',[studentID])
+	return cur.fetchall()
