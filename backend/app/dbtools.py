@@ -18,6 +18,7 @@ def insertUserIntoDatabase(name, email, pwdHash, isTeacher):
 		INSERT INTO Users
 		VALUES (DEFAULT,%s, %s, %s, %s)
 	""",[email, name, pwdHash, isTeacher])
+	conn.commit()
 
 def getSubjectIDByName(subjectName):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
@@ -185,3 +186,4 @@ def getSubmoduleIDsByModuleID(moduleID):
 		where moduleID=%s
 	''',[moduleID])
 	return cur.fetchall()
+
