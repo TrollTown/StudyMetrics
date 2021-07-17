@@ -262,11 +262,11 @@ def getClassIDsByTeacherID(teacherID):
 	''',[teacherID])
 	return cur.fetchall()
 
-def getClassNamebyClassID(classID):
+def getClassbyClassID(classID):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
 	cur = conn.cursor()
 	cur.execute('''
-		select className from Teaches
+		select * from Teaches
 		where classID=%s
 	''',[classID])
 	return cur.fetchall()[0]
