@@ -74,9 +74,8 @@ export default function upload() {
                 <option value="option1">Integration</option>
                 <option value="option2">Derivative</option>
                 <option value="option3">Conics</option>
-                <option value="option3">Proofs</option>
-                <option value="option3">Complex Numbers</option>
-                <option value="option3">Coordinate Geometry</option>
+                <option value="option4">Proofs</option>
+                <option value="option5">Complex Numbers</option>
               </Select>
             </VStack>
             <VStack>
@@ -84,10 +83,10 @@ export default function upload() {
                 Submodule
               </Heading>
               <Select w="15em" alignSelf="start" placeholder="Select submodule">
-                <option value="option2">U-substitution</option>
-                <option value="option3">Trigonemtric Substitution</option>
-                <option value="option3">Reduction Formulae</option>
-                <option value="option3">Partial Fractions</option>
+                <option value="option6">U-substitution</option>
+                <option value="option7">Trigonemtric Substitution</option>
+                <option value="option8">Reduction Formulae</option>
+                <option value="option9">Partial Fractions</option>
               </Select>
             </VStack>
           </HStack>
