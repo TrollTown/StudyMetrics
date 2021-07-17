@@ -168,3 +168,13 @@ def get_entire_level_progress():
 
     # dump_data()
     return json.dumps(resp)
+
+
+@flask_app.route("/get_class_radar", methods=['GET'])
+def get_class_radar():
+    payload = request.get_json()
+    # need to update history 
+    resp = getClassRadar(payload['classID']) # load_canvas grabs array from database
+
+    # dump_data()
+    return json.dumps(resp)

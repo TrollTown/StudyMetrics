@@ -229,8 +229,15 @@ def getClassRadar(classID):
 	sName = c[3]
 	ids = getStudentIDsByClassID(classID)
 	totals = {}
+	n = len(ids)
 	for id in ids:
-		k = radarGraphForStudent(id, sName, 'subject')
+		data = radarGraphForStudent(id, sName, 'subject')
+		for k,v in data.items():
+			totals[k] = totals.get(k,0) + v
+	retVal = {}
+	for k,v in totals.items():
+		retVal[k] = round(v/n)
+	return retVal
 
 
 
