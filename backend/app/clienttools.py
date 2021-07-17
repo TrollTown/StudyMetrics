@@ -1,3 +1,4 @@
+from backend.app.dbtools import getSubmoduleNameByID
 from app.dbtools import getSubmoduleIDsByModuleID
 from app.dbtools import *
 from datetime import datetime
@@ -78,14 +79,64 @@ def getNextQuestionID(studentID,submoduleID):
 			lastTime[qID] = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
 	items = list(lastTime.items())
 	items.sort(key=lambda x:x[1])
-	return items[0][0]
+	return {
+		'questionID': items[0][0]
+	}
 
 def getLevelProgress(studentID,level,levelID):
 	# get total number of questions
+	n = 0
 	if level=='subject':
 		n = len(getQuestionsBySubjectID(levelID))
 	elif level=='module':
-		n = len(getQuestionsBySubjectID(levelID))
+		n = len(getQuestionsByModuleID(levelID))
+	elif level=='submodule':
+		n = len(getQuestionsBySubmoduleID(levelID))
+
+	if n == 0:
+		return {
+			'progress': 0
+		}
 
 	# get number of those questions that were attempted, and how many were answered right
 	history = getHistoryByStudentID(studentID)[::-1]
+	lastTime={}
+	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
+		qData = getQuestionByID(qID)
+		if level=='subject' and levelID==qData[1]:
+			if res:
+				lastTime[qID] = 1
+			elif qID in lastTime:
+				del lastTime[qID]
+	m = len(lastTime.keys())
+	return {
+		'progress': round(100*m/n)
+	}
+
+def getEntireLevelProgress(studentID,level,parentLevelID):
+	ids = []
+	if level=='subject':
+		ids = getAllSubjectIDs()
+	elif level=='module':
+		ids = getModuleIDsBySubjectID(parentLevelID)
+	elif level=='submodule':
+		ids = getSubmoduleIDsByModuleID(parentLevelID)
+
+	retVal = {}
+	for id in ids:
+		name = ''
+		if level=='subject':
+			name = getSubjectNameByID(id)
+		elif level=='module':
+			name = getModuleNameByID(id)
+		elif level=='submodule':
+			name = getSubmoduleNameByID(id)
+		
+		retVal.append({
+			'id': id,
+			'name': name,
+			'progress': getLevelProgress(studentID,level,id)
+		})
+
+
+	return retVal

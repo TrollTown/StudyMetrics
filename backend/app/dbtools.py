@@ -13,11 +13,11 @@ def getUserByEmail(email):
 	return cur.fetchall()
 
 def insertUserIntoDatabase(name, email, pwdHash, isTeacher):
-	flask_app.logger.error("AAAAAAAAAA")
+	# flask_app.logger.error("AAAAAAAAAA")
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
-	flask_app.logger.error("BBBBBBBBBB")
+	# flask_app.logger.error("BBBBBBBBBB")
 	cur = conn.cursor()
-	flask_app.logger.error("CCCCCCCCCC")
+	# flask_app.logger.error("CCCCCCCCCC")
 	cur.execute("""
 		INSERT INTO Users
 		VALUES (DEFAULT,%s, %s, %s, %s)
@@ -191,3 +191,10 @@ def getSubmoduleIDsByModuleID(moduleID):
 	''',[moduleID])
 	return cur.fetchall()
 
+def getAllSubjectIDs():
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select subjectIDs from Subjects
+	''')
+	return cur.fetchall()
