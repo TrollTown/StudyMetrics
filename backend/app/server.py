@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from backend.app.clienttools import getEntireLevelProgress
+from backend.app.clienttools import approveAnswer, getEntireLevelProgress
 from flask import jsonify, request, render_template
 from app import flask_app
 import json, os
@@ -63,7 +63,9 @@ def get_revision_questions():
 #approve old answers
 @flask_app.route("/approve_answer", methods=['GET'])
 def approve_answer():
-    pass
+    payload = request.get_json()
+    resp = approveAnswer(payload['questionID'],payload['studentID'],payload['finish_time'],payload['result'])
+    return json.dumps(resp)
 
 #get stats for student
 @flask_app.route("/get_stats_by_ID", methods=['GET'])

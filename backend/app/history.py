@@ -65,8 +65,8 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
     result = False
 
     questionInfo = getQuestionByID(questionID)
-    questionType = questionInfo(5)
-    questionSoln = questionInfo(6)
+    questionType = questionInfo[5]
+    questionSoln = questionInfo[6]
     #Note: if approved and result are false, then that means it was whiteboard input and hasn't been checked yet
     if (questionType != 'whiteboard'):
         # Check answer against database
@@ -78,13 +78,13 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
     addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved)
 
 
-def addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved):
+def addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer , result, approved):
     # TODO: Duno what to do in line 83
     conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
     cur = conn.cursor()
 
-    cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, workingOutPhoto, result, approved) \
-        VALUES f({questionID}, {studentID}, {finish_time}, {attempt}, {masteredQ}, {nextAttempt}, {workingOutPhoto}, {result}, {approved})")
+    cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer , result, approved) \
+        VALUES f({questionID}, {studentID}, {finish_time}, {attempt}, {masteredQ}, {nextAttempt}, {student_answer}, {result}, {approved})")
 
     conn.commit()
     conn.close()
