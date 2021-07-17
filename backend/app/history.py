@@ -80,16 +80,16 @@ def updateHistory(questionID, studentID, answer):
             result = True
 
     # Adding new entry: Inserting all values into a new row in the history table
-    addHistory2Database(questionID, studentID, questionInfo[2], attempt, masteredQ, nextAttempt, answer, result, approved)
+    addHistory2Database(questionID, studentID, questionInfo[2], masteredQ, nextAttempt, answer, result, approved)
 
     return result
 
-def addHistory2Database(questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer , result, approved):
+def addHistory2Database(questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer , result, approved):
     # TODO: Duno what to do in line 83
     conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
     cur = conn.cursor()
 
-    cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer , result, approved) \
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", [questionID, studentID, finish_time, attempt, masteredQ, nextAttempt, student_answer, result, approved])
+    cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer , result, approved) \
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", [questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer, result, approved])
     conn.commit()
     conn.close()
