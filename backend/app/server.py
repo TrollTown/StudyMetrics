@@ -62,9 +62,9 @@ def load_canvas_from_database():
 @flask_app.route("/submit_question", methods=['POST'])
 def submit_question():
     payload = request.get_json()
-    resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer'], payload['workingOutPhoto']) # load_canvas grabs array from database
+    # need to update history 
+    resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer']) # load_canvas grabs array from database
     
-
 
     # dump_data()
     return json.dumps(resp)
