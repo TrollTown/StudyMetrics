@@ -139,8 +139,7 @@ def upload_question():
 # Question submission
 @flask_app.route("/submit_answer", methods=['POST'])
 def submit_answer():
-    payload = request.get_json()
-
+    payload = request.json
     # need to update history 
     resp = updateHistory(payload['questionID'], payload['studentID'], payload['answer']) # load_canvas grabs array from database
 

@@ -55,13 +55,13 @@ def updateHistory(questionID, studentID, answer, workingOutPhoto):
     nextAttempt = None
     if (attempt == 1):
         # next attempt should be 1 day from last attempt date
-        nextAttempt = datetime.now() + datetime.timedelta(days=1)
+        nextAttempt = datetime.datetime.now() + datetime.timedelta(days=1)
     if (attempt == 2):
         # next attempt should be 3 days from last atttempt date
-        nextAttempt = datetime.now() + datetime.timedelta(days=3)
+        nextAttempt = datetime.datetime.now() + datetime.timedelta(days=3)
     if (attempt == 3):
         #next attempt should be 10 days from last attempt date
-        nextAttempt = datetime.now() + datetime.timedelta(days=10)
+        nextAttempt = datetime.datetime.now() + datetime.timedelta(days=10)
 
         
     #Figure out approved
