@@ -41,7 +41,11 @@ def register():
 
 @flask_app.route('/login', methods=['POST'])
 def login():
-    content = request.json
+    content = None
+    try:
+        content = request.json
+    except Exception as e:
+        flask_app.logger.error(e)
     flask_app.logger.error(str(content))
     email = content['email']
     password = content['password']
