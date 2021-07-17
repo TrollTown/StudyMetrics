@@ -51,7 +51,7 @@ export default function Login() {
       body: JSON.stringify(body)
     };
 
-    fetch('https://api.production.hackathon.outki.org/register', options)
+    fetch('https://api.production.hackathon.outki.org/login', options)
       .then(res => res.json())
         .then(data => console.log(data))
   }

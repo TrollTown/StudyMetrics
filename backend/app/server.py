@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from backend.app.clienttools import approveAnswer, getEntireLevelProgress
+from app.clienttools import approveAnswer, getEntireLevelProgress
 from flask import jsonify, request, render_template
 from app import flask_app
 import json, os
