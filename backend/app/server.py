@@ -13,6 +13,7 @@ def root():
 
 @flask_app.route('/register', methods=['GET', 'POST'])
 def register():
+    flask_app.logger.error("BEFORE HELLLLOOOOOO")
     content = request.json
     flask_app.logger.error("HELLLLOOOOOO")
     name = content['name']
