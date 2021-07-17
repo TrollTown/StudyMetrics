@@ -155,11 +155,8 @@ def get_next_question():
 # Get the next question to do
 @flask_app.route("/get_entire_level_progress", methods=['GET'])
 def get_entire_level_progress():
-    payload = request.get_json()
     # need to update history 
-    resp = getEntireLevelProgress(payload['studentID'], payload['levelType'],payload['parentLevelID']) # load_canvas grabs array from database
-
-    # dump_data()
+    resp = getEntireLevelProgress(request.args.get('studentID'), request.args.get('levelType'),request.args.get('parentLevelID')) # load_canvas grabs array from database
     return json.dumps(resp)
 
 
