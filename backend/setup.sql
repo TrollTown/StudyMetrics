@@ -1,5 +1,7 @@
 drop table Users;
 drop table History;
+drop table Teaches;
+drop table Classes;
 drop table Questions;
 drop table Tags;
 drop table Subjects;
