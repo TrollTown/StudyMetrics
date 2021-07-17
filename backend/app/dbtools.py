@@ -204,3 +204,39 @@ def getHistoryEntry(questionID,studentID,finish_time):
 		where questionID=%s, studentID=%s, finish_time=%s
 	''',[questionID,studentID,finish_time])
 	return cur.fetchall()
+
+def getStudentIDsByClassID(classID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select studentID from Classes
+		where classID=%s
+	''',[classID])
+	return cur.fetchall()
+
+def getUserByID(userID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select * from Users
+		where id=%s
+	''',[userID])
+	return cur.fetchall()
+
+def getClassIDsByTeacherID(teacherID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select classID from Teaches
+		where teacherID=%s
+	''',[teacherID])
+	return cur.fetchall()
+
+def getClassNamebyClassID(classID):
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select className from Teaches
+		where classID=%s
+	''',[classID])
+	return cur.fetchall()

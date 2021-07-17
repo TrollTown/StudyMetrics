@@ -15,6 +15,19 @@ create table Users (
 	primary key (id)
 );
 
+create table Teaches (
+    classID   integer,
+    teacherID   integer,
+    className   text
+    primary key (classID)
+);
+
+create table Classes (
+    classID   serial,
+    studentID   integer
+    primary key (classID)
+);
+
 create table History (
     questionID  integer,
     studentID   integer,
@@ -77,6 +90,19 @@ values
     (DEFAULT,'student1@gmail.com','StudentOne','$pbkdf2-sha512$25000$S2kNYewdI8QYg9AaAyCk1A$Pzca5D4.FrGI8bUrYD1l0ipXVQgNEyDlo1G8EmS36/sfcxd.BXxnc1bpnWcEzhgRX2tMGnB1UBF9EFByKpJrHg',False),
     (DEFAULT,'student2@gmail.com','StudentTwo','$pbkdf2-sha512$25000$oPQ.p/T.39u7N.bcG.Ocsw$UOIZdKRKZLBDgJlWQtbEYlnQn15Z6.8zm8rMYXV3ZWjcaNMddAysO76TznfIynjP5iXLOpVXOcg38fT5KOGevA',False),
     (DEFAULT,'student3@gmail.com','StudentThree','$pbkdf2-sha512$25000$NCYkxBgDAKC01roX4lzLOQ$qvaPMXC5ogbgBXQ4KlqK7sisKojCIl8pPuTl9v32x.Wl50Rq9sWtBSYSAlGLoL2eH7BElW8gzNP.jhgWTyscug',False);
+
+insert into Classes
+values 
+    (DEFAULT,1,"Year 12 Math 2021"),
+    (DEFAULT,1,"Year 11 Math 2021"),
+    (DEFAULT,1,"Year 10 Math 2021"),
+    (DEFAULT,1,"Year 9 Math 2021");
+
+insert into Teaches
+values
+    (DEFAULT,1,4),
+    (DEFAULT,1,5),
+    (DEFAULT,1,6);
 
 insert into Subjects
 values
