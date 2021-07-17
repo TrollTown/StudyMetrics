@@ -56,8 +56,15 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodul
 		retVal[key] = elo
 	return retVal
 
-def getUnapprovedQuestions():
-	history = getAllHistory()
+def getUnapprovedQuestions(teacherID):
+	history = []
+	cIDs = getClassIDsByTeacherID(teacherID)
+	sIDs = []
+	for id in cIDs:
+		sIDs += getStudentIDsByClassID(id)
+	sIDs = list(set(sIDs))
+	for id in sIDs:
+		history += getHistoryByStudentID(id)
 	allQuestions = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
 		if (qID,sID,fTime) in allQuestions and approved:
