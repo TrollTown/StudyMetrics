@@ -26,7 +26,7 @@ def register():
     users = getUserByEmail(email)
     isTeacher = None
     if len(users) != 0:
-        return jsonify({"result" : "failed", "reason" : "Email is already registered."}, 400)
+        return jsonify({"result" : "failed", "reason" : "Email is already registered."}),400
     else:
         pw_hash = pbkdf2_sha512.hash(password)
         if userType == "student":
@@ -34,7 +34,7 @@ def register():
         else:
             isTeacher = True
         insertUserIntoDatabase(name, email, pw_hash, isTeacher)
-        return jsonify({"result" : "success"})
+        return jsonify({"result" : "success"}), 200
 
 @flask_app.route('/login', methods=['GET', 'POST'])
 def login():
