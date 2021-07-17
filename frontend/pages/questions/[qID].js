@@ -24,6 +24,8 @@ export default function Question() {
   const [answerRevealed, setAnswerRevealed] = useState(false);
   const [answerNum, setAnswerNum] = useState('');
 
+  console.log(qID)
+
   if (router.isReady && routerReady === false) {
     setRouterReady(true);
   }
@@ -85,6 +87,8 @@ export default function Question() {
     console.log(data);
     if (data.result) {
       setAnswerCorrect(true);
+    } else {
+      setAnswerCorrect(false);
     }
     setAnswerRevealed(true);
   }
@@ -97,7 +101,11 @@ export default function Question() {
     const res = await fetch(`https://api.production.hackathon.outki.org/get_next_question?studentID=${window.sessionStorage.getItem('token')}&submoduleID=${questionData.submoduleID}`, options);
     const data = await res.json();
     console.log(data);
-    router.push(`/questions/${data.questionID}`)
+    // setRouterReady(false);
+    // setAnswerRevealed(false);
+    // setAnswerMC(false);
+    // setAnswerNum(false);
+    router.push(`/questions/next/${data.questionID}`)
   }
 
   if (!router.isReady) {
@@ -124,10 +132,10 @@ export default function Question() {
             <Tooltip hasArrow label={answerCorrect ? "Correct" : "Incorrect"} bg={answerCorrect ? "green" : "red"} isOpen={answerRevealed} placement="top">
               <RadioGroup onChange={setAnswerMC} value={answerMC}>
                 <VStack>
-                  <Radio value="1">{questionData.options[0]}</Radio>
-                  <Radio value="2">{questionData.options[1]}</Radio>
-                  <Radio value="3">{questionData.options[2]}</Radio>
-                  <Radio value="4">{questionData.options[3]}</Radio>
+                  <Radio value="A">{questionData.options[0]}</Radio>
+                  <Radio value="B">{questionData.options[1]}</Radio>
+                  <Radio value="C">{questionData.options[2]}</Radio>
+                  <Radio value="D">{questionData.options[3]}</Radio>
                 </VStack>
               </RadioGroup>
             </Tooltip>}
