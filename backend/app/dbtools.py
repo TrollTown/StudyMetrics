@@ -188,3 +188,10 @@ def getSubmoduleIDsByModuleID(moduleID):
 	''',[moduleID])
 	return cur.fetchall()
 
+def getAllSubjectIDs():
+	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
+	cur = conn.cursor()
+	cur.execute('''
+		select subjectIDs from Subjects
+	''')
+	return cur.fetchall()

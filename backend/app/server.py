@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from backend.app.clienttools import getEntireLevelProgress
 from flask import jsonify, request, render_template
 from app import flask_app
 import json, os
@@ -112,6 +113,16 @@ def get_next_question():
     payload = request.get_json()
     # need to update history 
     resp = getNextQuestion(payload['studentID'], payload['submoduleID']) # load_canvas grabs array from database
+
+    # dump_data()
+    return json.dumps(resp)
+
+# Get the next question to do
+@flask_app.route("/get_entire_level_progress", methods=['GET'])
+def get_entire_level_progress():
+    payload = request.get_json()
+    # need to update history 
+    resp = getEntireLevelProgress(payload['studentID'], payload['levelType'],payload['parentLevelID']) # load_canvas grabs array from database
 
     # dump_data()
     return json.dumps(resp)
