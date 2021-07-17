@@ -3,6 +3,22 @@ from app.history import *
 from datetime import datetime
 import time
 
+def getQuestionDataByID(questionID):
+	qData = getQuestionByID(questionID)
+	return {
+		'questionID': qData[0],
+		'subjectID': qData[1],
+		'moduleID' : qData[2]   ,
+		'submoduleID' : qData[3],
+		'questionText' : qData[4]  ,
+		'questionType' : qData[5] ,
+		'answer'  : qData[6] ,
+		'photo'   : qData[7]  ,
+		'difficulty' : qData[8],
+		'authorID'  : qData[9],
+		'starred'  : qData[10]
+	}
+
 def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodule
 	history = getHistoryByStudentID(studentID)
 	groups = {}
@@ -40,8 +56,15 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or module or submodul
 		retVal[key] = elo
 	return retVal
 
-def getUnapprovedQuestions():
-	history = getAllHistory()
+def getUnapprovedQuestions(teacherID):
+	history = []
+	cIDs = getClassIDsByTeacherID(teacherID)
+	sIDs = []
+	for id in cIDs:
+		sIDs += getStudentIDsByClassID(id)
+	sIDs = list(set(sIDs))
+	for id in sIDs:
+		history += getHistoryByStudentID(id)
 	allQuestions = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
 		if (qID,sID,fTime) in allQuestions and approved:
@@ -146,3 +169,28 @@ def approveAnswer(questionID,studentID,finish_time,result):
 	return {
 		'result':'success'
 	}
+
+# overall performance of class
+# 
+def getClassMembers(classID):
+	ids = getStudentIDsByClassID(classID)
+	retVal = []
+	for id in ids:
+		s = getUserByID(id)
+		retVal.append({
+			'id': id,
+			'name': s[2],
+		})
+	return retVal
+
+
+def getClassList(teacherID):
+	ids = getClassIDsByTeacherID(teacherID)
+	retVal = []
+	for id in ids:
+		c = getClassNamebyClassID(id)
+		retVal.append({
+			'id': id,
+			'name': c[2],
+		})
+	return retVal

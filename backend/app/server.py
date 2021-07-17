@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from backend.app.clienttools import approveAnswer, getEntireLevelProgress
+from app.clienttools import approveAnswer, getEntireLevelProgress
 from flask import jsonify, request, render_template
 from app import flask_app
 import json, os
@@ -54,27 +54,28 @@ def login():
         return jsonify({"result" : "success", "token" : users[0][0]}), 200
     else:
         return jsonify({"result" : "failed", "reason" : "Login failed"}),400
-    
-
 
 #get question
 @flask_app.route("/get_question_by_ID", methods=['GET'])
 def get_question_by_ID():
-    payload = request.json
-    resp = getQuestionByID(payload['questionID'])
+    questionID = request.args.get('questionID')
+    flask_app.logger.error(questionID)
+    resp = getQuestionDataByID(questionID)
     return json.dumps(resp)
 
 #get list of unapproved questions
 @flask_app.route("/get_unapproved_questions", methods=['GET'])
-def get_unapproved_questions():
-    # payload = request.get_json()
-    resp = getUnapprovedQuestions()
+def get_unapproved_questions(teacherID):
+    teacherID = request.args.get('teacherID')
+    resp = getUnapprovedQuestions(teacherID)
     return json.dumps(resp)
 
 #get list of curated training questions
 @flask_app.route("/get_revision_questions", methods=['GET'])
 def get_revision_questions():
-    pass 
+    payload = request.get_json()
+    resp = selectRevisionQ(payload['studentID'])
+    return json.dumps(resp)
 
 #approve old answers
 @flask_app.route("/approve_answer", methods=['GET'])
@@ -90,9 +91,23 @@ def get_stats_by_ID():
     resp = radarGraphForStudent(payload['studentID'], payload['searchValue'], payload['searchMode']) 
     return json.dumps(resp)
 
+#get stats for student
+@flask_app.route("/get_class_members", methods=['GET'])
+def get_class_members():
+    payload = request.get_json()
+    resp = getClassMembers(payload['classID']) 
+    return json.dumps(resp)
+
+#get stats for student
+@flask_app.route("/get_class_list", methods=['GET'])
+def get_class_list():
+    payload = request.get_json()
+    resp = getClassList(payload['teacherID']) 
+    return json.dumps(resp)
+
 #submit question
-@flask_app.route("/submit_question", methods=['GET'])
-def submit_question():
+@flask_app.route("/upload_question", methods=['POST'])
+def upload_question():
     payload = request.get_json()
     # need to update history 
     # load_canvas grabs array from database
