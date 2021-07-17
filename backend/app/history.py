@@ -69,8 +69,9 @@ def updateHistory(questionID, studentID, answer):
     #default true for mc or numeric
     approved = False
     result = False
-
+    
     questionInfo = getQuestionByID(questionID)
+    flask_app.logger.error(questionInfo)
     questionType = questionInfo[5]
     questionSoln = questionInfo[6]
     #Note: if approved and result are false, then that means it was whiteboard input and hasn't been checked yet
@@ -81,7 +82,7 @@ def updateHistory(questionID, studentID, answer):
             result = True
 
     # Adding new entry: Inserting all values into a new row in the history table
-    addHistory2Database(questionID, studentID, questionInfo[2], masteredQ, nextAttempt, answer, result, approved)
+    addHistory2Database(questionID, studentID, datetime.datetime.now(), masteredQ, nextAttempt, answer, result, approved)
 
     return result
 
@@ -91,6 +92,6 @@ def addHistory2Database(questionID, studentID, finish_time, masteredQ, nextAttem
     cur = conn.cursor()
 
     cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer , result, approved) \
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", [questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer, result, approved])
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer, result, approved])
     conn.commit()
     conn.close()
