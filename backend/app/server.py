@@ -53,7 +53,7 @@ def login():
     if pbkdf2_sha512.verify(password, stored_hash):
         return jsonify({"result" : "success", "token" : users[0][0]}), 200
     else:
-        return jsonify({"result" : "failed", "reason" : "Login failed"}),400
+        return jsonify({"result" : "failed", "reason" : "Login failed"}), 400
 
 #get question
 @flask_app.route("/get_question_by_ID", methods=['GET'])
@@ -62,6 +62,11 @@ def get_question_by_ID():
     flask_app.logger.error(questionID)
     resp = getQuestionDataByID(questionID)
     flask_app.logger.error(resp)
+    questionText = resp['questionText']
+    questionTextSplit = questionText.split(' ')
+    answer = questionTextSplit[1].split('|')
+    resp['questionText'] = questionTextSplit[0][:-1]
+    resp['answers'] = answer
     return json.dumps(resp)
 
 
