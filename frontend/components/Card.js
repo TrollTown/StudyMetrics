@@ -41,9 +41,8 @@ const colorScheme = [
     colorScheme: "green",
   },
   {
-    backgroundImage:
-      "linear-gradient(-225deg, #22E1FF 0%, #1D8FE1 48%, #625EB1 100%)",
-    colorScheme: "blue",
+    backgroundImage: "linear-gradient( 135deg, #FFE985 10%, #FA742B 100%)",
+    colorScheme: "orange",
   },
 ];
 

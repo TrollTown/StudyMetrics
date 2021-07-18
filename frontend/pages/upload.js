@@ -20,7 +20,7 @@ import {
   RadioGroup,
   Radio,
 } from "@chakra-ui/react";
-import StudentLayout from "../components/StudentLayout";
+import TeacherLayout from "../components/TeacherLayout";
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 
@@ -50,7 +50,7 @@ export default function upload() {
     //     setMessage("Uploaded");
   };
   return (
-    <StudentLayout>
+    <TeacherLayout>
       <VStack style={{ minWidth: "calc(100vw - 17em)" }}>
         <Breadcrumb alignSelf="start">
           <BreadcrumbItem>
@@ -135,6 +135,6 @@ export default function upload() {
           </HStack>
         </Stack>
       </VStack>
-    </StudentLayout>
+    </TeacherLayout>
   );
 }

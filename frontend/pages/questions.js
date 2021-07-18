@@ -12,6 +12,7 @@ import {
   BreadcrumbLink,
   Box,
   Grid,
+  Stack,
 } from "@chakra-ui/react";
 import Chart from "../components/Chart";
 import StudentLayout from "../components/StudentLayout";
@@ -21,14 +22,17 @@ import { BiShapeTriangle, BiDna } from "react-icons/bi";
 import { AiOutlineStock } from "react-icons/ai";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { GiFountainPen } from "react-icons/gi";
 
 export default function Progress() {
   const router = useRouter();
   const subjects = [
-    { name: "Physics", icon: <SiAtom />, progress: 80 },
-    { name: "Mathematics", icon: <BiShapeTriangle />, progress: 70 },
-    { name: "Biology", icon: <BiDna />, progress: 40 },
-    { name: "Economics", icon: <AiOutlineStock />, progress: 50 },
+    { name: "HSC Physics", icon: <SiAtom />, progress: 80 },
+    { name: "HSC Maths Ext2", icon: <BiShapeTriangle />, progress: 70 },
+    { name: "HSC Biology", icon: <BiDna />, progress: 40 },
+    { name: "HSC Economics", icon: <AiOutlineStock />, progress: 50 },
+    { name: "HSC Maths Ext1", icon: <BiShapeTriangle />, progress: 50 },
+    { name: "HSC English Advanced", icon: <GiFountainPen />, progress: 50 },
   ];
 
   const modules = [
@@ -74,16 +78,18 @@ export default function Progress() {
 
   return (
     <StudentLayout>
-      <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
-        Questions
-      </Heading>
-      <Grid templateColumns="repeat(3, 1fr)" gap={3}>
-        {topics.map((topic, index) => (
-          <div onClick={handleClick} key={index}>
-            <Card topic={topic} index={index} />
-          </div>
-        ))}
-      </Grid>
+      <Stack style={{ minWidth: "calc(100vw - 17em)" }}>
+        <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
+          Questions
+        </Heading>
+        <Grid templateColumns="repeat(3, 1fr)" gap={3}>
+          {topics.map((topic, index) => (
+            <div onClick={handleClick} key={index}>
+              <Card topic={topic} index={index} />
+            </div>
+          ))}
+        </Grid>
+      </Stack>
     </StudentLayout>
   );
 }
