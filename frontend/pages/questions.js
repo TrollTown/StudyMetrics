@@ -12,6 +12,7 @@ import {
   BreadcrumbLink,
   Box,
   Grid,
+  Stack,
 } from "@chakra-ui/react";
 import Chart from "../components/Chart";
 import StudentLayout from "../components/StudentLayout";
@@ -77,16 +78,18 @@ export default function Progress() {
 
   return (
     <StudentLayout>
-      <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
-        Questions
-      </Heading>
-      <Grid templateColumns="repeat(3, 1fr)" gap={3}>
-        {topics.map((topic, index) => (
-          <div onClick={handleClick} key={index}>
-            <Card topic={topic} index={index} />
-          </div>
-        ))}
-      </Grid>
+      <Stack style={{ minWidth: "calc(100vw - 17em)" }}>
+        <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
+          Questions
+        </Heading>
+        <Grid templateColumns="repeat(3, 1fr)" gap={3}>
+          {topics.map((topic, index) => (
+            <div onClick={handleClick} key={index}>
+              <Card topic={topic} index={index} />
+            </div>
+          ))}
+        </Grid>
+      </Stack>
     </StudentLayout>
   );
 }
