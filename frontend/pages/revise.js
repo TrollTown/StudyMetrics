@@ -126,9 +126,9 @@ export default function Revise() {
             Question {questionNum}
           </Heading>
           <HStack>
-            <Heading size="md">{question.moduleName} · </Heading>
+            <Heading size="md">{/* {question.moduleName} · */}</Heading>
             <Heading size="md" color="gray.500">
-              {question.questionIDsubmoduleName}
+              {/* {question.questionIDsubmoduleName} */}
             </Heading>
           </HStack>
         </VStack>
