@@ -9,14 +9,10 @@
 [O] Result              1
 [X] Approved            1
 """
-import time
-import psycopg2
 import datetime
 import os
 from app.dbtools import *
 from app import flask_app
-
-# def checkAnswer(questionID,answer)
 
 def updateHistory(questionID, studentID, answer):
     # finish_time = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
@@ -86,12 +82,3 @@ def updateHistory(questionID, studentID, answer):
 
     return result
 
-def addHistory2Database(questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer , result, approved):
-    # TODO: Duno what to do in line 83
-    conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
-    cur = conn.cursor()
-
-    cur.execute("INSERT INTO HISTORY (questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer , result, approved) \
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [questionID, studentID, finish_time, masteredQ, nextAttempt, student_answer, result, approved])
-    conn.commit()
-    conn.close()
