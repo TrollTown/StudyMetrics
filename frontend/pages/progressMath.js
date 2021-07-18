@@ -38,7 +38,7 @@ export default function ProgressMath() {
         <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
           Progress
         </Heading>
-        <Chart message="Your Performance" />
+        <Chart message="Your Performance" type="math" />
       </VStack>
     </StudentLayout>
   );

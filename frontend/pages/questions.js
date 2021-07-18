@@ -40,7 +40,7 @@ export default function Progress() {
     { name: "Derivatives", progress: 30 },
     { name: "Conics", progress: 60 },
     { name: "Proofs", progress: 50 },
-    { name: "", progress: 20 },
+    { name: "Complex Numbers I", progress: 20 },
     { name: "Complex Numbers II", progress: 50 },
   ];
 

@@ -45,7 +45,7 @@ export default function Progress() {
         <Heading as="h3" color="#1E2D38" alignSelf="start" mb="1em">
           Progress
         </Heading>
-        <Chart message="Your Performance" />
+        <Chart message="Your Performance" type="all" />
 
         <Grid templateColumns="repeat(3, 1fr)" gap={3}>
           {classes.map((eduClass, index) => (

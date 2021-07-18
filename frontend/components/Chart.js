@@ -2,18 +2,29 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Radar } from "react-chartjs-2";
 
-function Chart({ message }) {
+function Chart({ message, type }) {
   let scores = [];
   let categories = [];
   if (message === "Your Performance") {
-    categories = [
-      "Integration",
-      "Derivatives",
-      "Conics",
-      "Proofs",
-      "Complex Numbers",
-      "Coordinate Geometry",
-    ];
+    if (type === "math")
+      categories = [
+        "Integration",
+        "Derivatives",
+        "Conics",
+        "Proofs",
+        "Complex Numbers",
+        "Coordinate Geometry",
+      ];
+    else
+      categories = [
+        "HSC Physics",
+        "HSC Maths Ext2",
+        "HSC Biology",
+        "HSC Economics",
+        "HSC Maths Ext1",
+        "HSC English Advanced",
+      ];
+
     scores = [3, 7, 4, 2, 5, 3];
   } else {
     categories = [
