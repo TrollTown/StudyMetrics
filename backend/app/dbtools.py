@@ -10,7 +10,7 @@ def getUserByEmail(email):
 		FROM users
 		WHERE email=%s
 	''',[email])
-	return cur.fetchall()[0]
+	return cur.fetchall()
 
 def insertUserIntoDatabase(name, email, pwdHash, isTeacher):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
@@ -191,7 +191,7 @@ def getAllHistory():
 	''')
 	return cur.fetchall()
 
-def addQuestion(subjectID,moduleID,submoduleID,questionText,questionType,answer,photo,difficulty,authorID):
+def uploadQuestion(subjectID,moduleID,submoduleID,questionText,questionType,answer,photo,difficulty,authorID):
 	conn = psycopg2.connect(database="hackathon_db", user = "hackathon_db_user", password = os.environ.get("PGPASSWORD"))
 	cur = conn.cursor()
 	cur.execute('''

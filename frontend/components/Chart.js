@@ -2,31 +2,53 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Radar } from "react-chartjs-2";
 
-const data = {
-  labels: ["Thing 1", "Thing 2", "Thing 3", "Thing 4", "Thing 5", "Thing 6"],
-  datasets: [
-    {
-      label: "Your Performance",
-      //       data: [20, 60, 40, 50, 80, 60],
-      data: [2, 6, 4, 5, 8, 6],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
-      borderWidth: 1,
+function Chart({ message }) {
+  let scores = [];
+  let categories = [];
+  if (message === "Your Performance") {
+    categories = [
+      "Integration",
+      "Derivatives",
+      "Conics",
+      "Proofs",
+      "Complex Numbers",
+      "Coordinate Geometry",
+    ];
+    scores = [3, 7, 4, 2, 5, 3];
+  } else {
+    categories = [
+      "12AMathsExtII",
+      "12CAdvMath",
+      "11BMath",
+      "10AMath",
+      "9GMath",
+      "7RMath",
+    ];
+    scores = [4, 7, 6, 8, 5, 9];
+  }
+  const data = {
+    labels: categories,
+    datasets: [
+      {
+        label: message,
+        data: scores,
+        backgroundColor: "#D6BCFA",
+        borderColor: "#805AD5",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    scale: {
+      ticks: { beginAtZero: true },
+      suggestedMin: 0,
+      suggestedMax: 10,
     },
-  ],
-};
-
-const options = {
-  scale: {
-    ticks: { beginAtZero: true },
-    suggestedMax: 10,
-  },
-};
-
-function Chart() {
+  };
   return (
     <Box w={500}>
-      <Radar data={data} options={options} width={500} height={500} />
+      <Radar data={data} options={options} width={450} height={450} />
     </Box>
   );
 }

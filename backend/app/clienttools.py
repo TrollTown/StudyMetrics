@@ -2,6 +2,7 @@ from app.dbtools import *
 from app.history import *
 from datetime import datetime
 import time
+from app import flask_app
 
 def getQuestionDataByID(questionID):
 	qData = getQuestionByID(questionID)
@@ -56,13 +57,16 @@ def radarGraphForStudent(studentID,searchVal,searchMode):# or subject or module
 		qDiff = qData[8]
 		key = ''
 		if searchMode == 'subject' and qData[1]==searchVal:
-			key = getSubjectNameByID(qData[2]) #if searhcing by subject, split on module
+			key = getModuleNameByID(qData[2]) #if searhcing by subject, split on module
 		elif searchMode == 'module'  and qData[2]==searchVal:
-			key = getSubjectNameByID(qData[3]) #if searhcing by module, split on submodule
+			key = getSubmoduleNameByID(qData[3]) #if searhcing by module, split on submodule
+		else: 
+			continue
+
 		if key not in groups:
 			groups[key] = []
 
-		fTime = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+		fTime = int(fTime.strftime('%s'))
 		
 		groups[key].append((res,qDiff,fTime))
 
@@ -124,10 +128,15 @@ def getNextQuestionID(studentID,submoduleID):
 	history = getHistoryByStudentID(studentID)[::-1]
 	lastTime = {}
 	for qID,sID,fTime,masteredQ,nextAttempt,sAns,res,approved in history:
-		if sID == submoduleID:
-			lastTime[qID] = int(datetime.strptime(fTime, '%Y-%m-%d %I:%M:%S %p').strftime('%s'))
+		qData = getQuestionByID(qID)
+		qDataSubId = qData[3]
+		flask_app.logger.error(qDataSubId)
+		if int(qDataSubId) == int(submoduleID):
+			flask_app.logger.error("GGGGGGGGGGGGGGGGGGGG")
+			lastTime[qID] = int(fTime.strftime('%s'))
 	items = list(lastTime.items())
 	items.sort(key=lambda x:x[1])
+	flask_app.logger.error(items)
 	return {
 		'questionID': items[0][0]
 	}
