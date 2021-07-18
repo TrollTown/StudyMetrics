@@ -48,7 +48,7 @@ function Chart({ message }) {
   };
   return (
     <Box w={500}>
-      <Radar data={data} options={options} width={500} height={500} />
+      <Radar data={data} options={options} width={450} height={450} />
     </Box>
   );
 }

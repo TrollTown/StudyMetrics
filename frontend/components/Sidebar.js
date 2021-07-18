@@ -12,8 +12,15 @@ import { IoIosSpeedometer } from "react-icons/io";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { FaFileUpload } from "react-icons/fa";
 import router from "next/router";
+import book from "../public/book.png";
+import Image from "next/image";
+import { Divider } from "@chakra-ui/react";
 
 function Sidebar({ userType }) {
+  const [selected, setSelected] = React.useState(
+    userType === "student" ? "progress" : "classes"
+  );
+
   let items = [];
   if (userType === "student") {
     items = [
@@ -40,13 +47,16 @@ function Sidebar({ userType }) {
       minH="100%"
       p={4}
       justifyContent="space-between"
-      position="sticky"
+      style={{
+        position: "sticky",
+      }}
     >
       <Stack color="#516284" spacing="1em" mt="0.5em">
-        <HStack mb="1em" align="center" spacing="1em">
-          <GiSpellBook />
-          <Link href="/">App Name</Link>
+        <HStack align="center">
+          <Image src={book} width={30} height={30} />
+          <Link href="/">Study Metrics</Link>
         </HStack>
+        <Divider />
         {items.map((item) => (
           <ChakraLink
             _hover={{
@@ -54,6 +64,8 @@ function Sidebar({ userType }) {
               color: "#283753",
             }}
             key={`/${item.name}`}
+            color={item.name === selected && "#283753"}
+            onClick={() => setSelected(item.name)}
           >
             <HStack spacing="1em">
               {item.icon}
