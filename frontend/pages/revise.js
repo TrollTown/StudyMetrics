@@ -40,63 +40,69 @@ export default function Revise() {
       subjectID: "HSC Mathematics Extension 2",
       moduleID: "Integration",
       submoduleID: "Integration by Parts",
-      questionText: "Using integration by parts, compute the following integral:\int_1^5x^{2}ln(x)",
+      questionText:
+        "Using integration by parts, compute the following integral:int_1^5x^{2}ln(x)",
       questionType: "numerical",
       answer: "53.28",
       photo: null,
       difficulty: 2,
-      starred: false
+      starred: false,
     },
     {
       questionID: "201",
       subjectID: "HSC Mathematics Extension 2",
       moduleID: "Integration",
       submoduleID: "9",
-      questionText: "Find:\int_{}^{}\frac{16x-43}{(x-3)^2(x+2)}dx",
+      questionText: "Find:int_{}^{}\frac{16x-43}{(x-3)^2(x+2)}dx",
       questionType: "whiteboard",
       photo: null,
       difficulty: 2,
-      starred: false
+      starred: false,
     },
     {
       questionID: "202",
       subjectID: "HSC Mathematics Extension 2",
       moduleID: "Integration",
       submoduleID: "7",
-      questionText: "Find:\int_{}^{}\frac{x}{\sqrt{1-x}}dx:using the substitution:u=1+x^2",
+      questionText:
+        "Find:int_{}^{}\frac{x}{sqrt{1-x}}dx:using the substitution:u=1+x^2",
       questionType: "whiteboard",
       photo: null,
       difficulty: 2,
-      starred: false
+      starred: false,
     },
     {
       questionID: "203",
       subjectID: "HSC Mathematics Extension 2",
       moduleID: "Integration",
       submoduleID: "7",
-      questionText: "Solve:\int_{\frac{}{}}^{}\frac{1}{\sqrt{e^{2x}-1}} where x\ge  0",
+      questionText:
+        "Solve:int_{\frac{}{}}^{}\frac{1}{sqrt{e^{2x}-1}} where xge  0",
       questionType: "whiteboard",
       photo: null,
       difficulty: 2,
-      starred: false
+      starred: false,
     },
     {
       questionID: "204",
       subjectID: "HSC Mathematics Extension 2",
       moduleID: "Integration",
       submoduleID: "9",
-      questionText: "Consider the statement: ‘If n is even, then if n is a multiple of 3, then n is a multiple of 6’. Which of the following is the negation of this statement?",
+      questionText:
+        "Consider the statement: ‘If n is even, then if n is a multiple of 3, then n is a multiple of 6’. Which of the following is the negation of this statement?",
       options: [
         "n is odd and n is not a multiple of 3 or 6",
         "n is even and n is a multiple of 3 but not a multiple of 6",
-        "If n is even, then n is not a multiple of 3 and n is not a multiple of 6. multiple of 6."
+        "If n is even, then n is not a multiple of 3 and n is not a multiple of 6. multiple of 6.",
       ],
       questionType: "mc",
       photo: null,
       difficulty: 2,
-      starred: false
+      starred: false,
+      module: "Proofs",
+      subModule: "Proofs by Contradiction",
     },
-  ]
+  ];
 
   return (
     <StudentLayout>
