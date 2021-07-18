@@ -40,6 +40,7 @@ function Sidebar({ userType }) {
       minH="100%"
       p={4}
       justifyContent="space-between"
+      position="sticky"
     >
       <Stack color="#516284" spacing="1em" mt="0.5em">
         <HStack mb="1em" align="center" spacing="1em">

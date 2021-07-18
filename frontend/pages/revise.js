@@ -100,11 +100,7 @@ export default function Revise() {
 
   return (
     <StudentLayout>
-      <VStack
-        style={{ minWidth: "calc(100vw - 17em)" }}
-        minH="100vh"
-        spacing="2em"
-      >
+      <VStack style={{ minWidth: "calc(100vw - 17em)" }}>
         <HStack
           justify="spaceAround"
           align="stretch"
